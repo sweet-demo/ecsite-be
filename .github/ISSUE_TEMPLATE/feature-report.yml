@@ -1,0 +1,18 @@
+name: 🚀 機能要望
+description: 機能追加や改善の提案
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 機能の説明
+      description: 提案する機能の説明を記載してください。
+    validations:
+      required: true
+
+  - type: textarea
+    id: other
+    attributes:
+      label: その他の情報
+      description: その他の情報を記載してください。
+    validations:
+      required: false
