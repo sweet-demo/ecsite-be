@@ -1,0 +1,255 @@
+name: Update Database Documentation
+
+on:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'be/database/migrations/**'
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - 'be/database/migrations/**'
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: pdo_mysql, mysql
+
+      - name: Install MySQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mysql-client
+
+      - name: Setup tbls
+        uses: k1low/setup-tbls@v1
+
+      - name: Setup Laravel project
+        working-directory: ./be
+        run: |
+          composer install --no-interaction --prefer-dist --optimize-autoloader
+          cp .env.local .env
+          php artisan key:generate
+
+      - name: Configure database connection
+        working-directory: ./be
+        run: |
+          # .envファイルにデータベース設定を追加
+          echo "DB_CONNECTION=mysql" >> .env
+          echo "DB_HOST=127.0.0.1" >> .env
+          echo "DB_PORT=3306" >> .env
+          echo "DB_DATABASE=laravel" >> .env
+          echo "DB_USERNAME=root" >> .env
+          echo "DB_PASSWORD=password" >> .env
+          echo "APP_ENV=testing" >> .env
+
+      - name: Verify tbls configuration
+        working-directory: ./be
+        run: |
+          echo "Checking tbls.yml configuration..."
+          if [ -f "tbls.yml" ]; then
+            echo "tbls.yml found"
+            cat tbls.yml
+          else
+            echo "tbls.yml not found"
+            exit 1
+          fi
+
+      - name: Start MySQL container
+        run: |
+          docker run --name mysql-temp -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=laravel -p 3306:3306 -d mysql:8.0
+          echo "Waiting for MySQL to be ready..."
+          sleep 30
+          
+          # MySQLの起動確認
+          for i in {1..10}; do
+            if mysql -h 127.0.0.1 -P 3306 -u root -ppassword -e "SELECT 1;" >/dev/null 2>&1; then
+              echo "MySQL is ready"
+              break
+            else
+              echo "Waiting for MySQL... (attempt $i/10)"
+              sleep 10
+            fi
+          done
+
+      - name: Run migrations
+        working-directory: ./be
+        run: |
+          echo "Running Laravel migrations..."
+          php artisan migrate --force
+          echo "Migrations completed"
+          
+          # マイグレーション後のテーブル確認
+          echo "Tables after migration:"
+          mysql -h 127.0.0.1 -P 3306 -u root -ppassword laravel -e "SHOW TABLES;"
+
+      - name: Generate documentation
+        working-directory: ./be
+        run: |
+          mkdir -p ../docs
+          echo "Generating database documentation..."
+          
+          # データベース接続確認
+          echo "Checking database connection..."
+          mysql -h 127.0.0.1 -P 3306 -u root -ppassword -e "SHOW DATABASES;"
+          
+          # テーブル一覧確認
+          echo "Checking tables..."
+          mysql -h 127.0.0.1 -P 3306 -u root -ppassword laravel -e "SHOW TABLES;"
+          
+          # tblsの設定確認
+          echo "Checking tbls configuration..."
+          tbls lint
+          
+          # ドキュメント生成
+          echo "Generating documentation with tbls..."
+          tbls doc
+          
+          echo "Documentation generated successfully"
+          
+          # 生成されたファイルの確認
+          echo "Generated files:"
+          ls -la ../docs/
+          
+          # ER図の確認
+          if [ -f "../docs/er.svg" ]; then
+            echo "ER diagram generated: ../docs/er.svg"
+          elif [ -f "../docs/schema.svg" ]; then
+            echo "ER diagram generated: ../docs/schema.svg"
+          else
+            echo "ER diagram not generated"
+          fi
+          
+          if [ -f "../docs/tables.md" ]; then
+            echo "Tables documentation generated: ../docs/tables.md"
+          elif [ -f "../docs/README.md" ]; then
+            echo "Tables documentation generated: ../docs/README.md"
+          else
+            echo "Tables documentation not generated"
+          fi
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          # ドキュメントディレクトリの存在確認
+          if [ ! -d "docs" ]; then
+            echo "docs directory not found"
+            echo "changes=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # 変更の確認
+          git add docs/
+          if git diff --cached --quiet; then
+            echo "No changes detected in docs directory"
+            echo "changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected in docs directory"
+            echo "Changed files:"
+            git diff --cached --name-only
+            echo "changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Debug PR creation
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          echo "=== Debug Information ==="
+          echo "Event name: ${{ github.event_name }}"
+          echo "Current ref: ${{ github.ref }}"
+          echo "Current ref name: ${{ github.ref_name }}"
+          echo "Head ref: ${{ github.head_ref }}"
+          echo "Base ref: ${{ github.base_ref }}"
+          echo "Changes detected: ${{ steps.check_changes.outputs.changes }}"
+          echo "Token available: ${{ secrets.GITHUB_TOKEN != '' }}"
+          echo "========================"
+
+      - name: Create Pull Request
+        if: steps.check_changes.outputs.changes == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "docs: tblsによるデータベースドキュメント更新"
+          title: "🤖 データベースドキュメント更新 (実行 #${{ github.run_number }})"
+          body: |
+            ## データベースドキュメント更新
+
+            このPRは、最近のマイグレーション変更に基づいてデータベースドキュメントを更新します。
+
+            変更内容を確認し、問題がなければマージしてください。
+
+            ### 変更内容:
+            - ER図の更新
+            - テーブル定義の更新
+
+            ### 使用ツール:
+            - [tbls](https://github.com/k1low/tbls)
+
+          # developブランチをベースに設定
+          base: develop
+          branch: update-database-docs
+          delete-branch: true
+          committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+
+      - name: Output PR info
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          echo "Pull request created successfully"
+          echo "Branch: update-database-docs"
+          echo "Base: develop"
+          echo "Target: develop ← update-database-docs"
+
+      - name: Cleanup
+        if: always()
+        run: |
+          docker stop mysql-temp || true
+          docker rm mysql-temp || true
+
+      - name: Success message
+        if: success()
+        run: |
+          echo "Database documentation workflow completed successfully"
+          echo "ER diagram and table definitions have been updated"
+          if [ "${{ steps.check_changes.outputs.changes }}" == "true" ]; then
+            echo "Pull request has been created for review"
+          else
+            echo "No changes detected in documentation"
+          fi
+
+      - name: Failure message
+        if: failure()
+        run: |
+          echo "Workflow failed"
+          echo "Check the logs above for detailed error information"
+          echo "Common issues:"
+          echo "- Token permissions"
+          echo "- Repository settings"
+          echo "- Network connectivity"
+          echo "- Branch protection rules"
