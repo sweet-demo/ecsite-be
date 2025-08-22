@@ -104,9 +104,9 @@ logs-php: ## PHPログを表示
 logs-next: ## Next.jsログを表示
 	docker compose logs -f next
 
-.PHONY: logs-web
-logs-web: ## Webサーバーログを表示
-	docker compose logs -f web
+.PHONY: logs-nginx
+logs-nginx: ## Nginxログを表示
+	docker compose logs -f nginx
 
 # ------------------------------
 # コンテナステータス

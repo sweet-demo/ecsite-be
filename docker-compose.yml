@@ -62,14 +62,14 @@ services:
     networks:
       - ecsite_network
 
-  web:
+  nginx:
     build:
       context: .
-      dockerfile: infra/web/Dockerfile
-    container_name: ecsite_web
+      dockerfile: infra/nginx/Dockerfile
+    container_name: ecsite_nginx
     restart: unless-stopped
     volumes:
-      - ./infra/web/ssl:/etc/nginx/ssl:ro
+      - ./infra/nginx/ssl:/etc/nginx/ssl:ro
     ports:
       - "80:80"
       - "443:443"

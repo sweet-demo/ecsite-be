@@ -45,7 +45,7 @@ ecsite/
 │   ├── php/            # php Dockerファイル
 │   ├── mysql/          # mysql Dockerファイル
 │   ├── next/           # node Dockerファイル
-│   └── web/            # nginx Dockerファイル
+│   └── nginx/          # nginx Dockerファイル
 ├── docker-compose.yml  # Docker Compose
 ├── Makefile            # 開発用コマンド
 └── README.md
