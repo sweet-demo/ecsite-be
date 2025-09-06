@@ -39,26 +39,11 @@ services:
     container_name: ecsite_php
     restart: unless-stopped
     volumes:
-      - ./be:/var/www/html
-      - ./be/storage:/var/www/html/storage
+      - ./src:/var/www/html
+      - ./src/storage:/var/www/html/storage
     depends_on:
       mysql:
         condition: service_healthy
-    networks:
-      - ecsite_network
-
-  next:
-    build:
-      context: .
-      dockerfile: infra/next/Dockerfile
-    container_name: ecsite_next
-    restart: unless-stopped
-    volumes:
-      - ./fe:/app
-      - /app/.next
-    environment:
-      - NODE_ENV=development
-      - WATCHPACK_POLLING=true
     networks:
       - ecsite_network
 
@@ -75,6 +60,5 @@ services:
       - "443:443"
     depends_on:
       - php-fpm
-      - next
     networks:
       - ecsite_network

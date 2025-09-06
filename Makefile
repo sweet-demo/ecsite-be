@@ -27,7 +27,6 @@ init: ## 初回セットアップ
 	docker compose exec php-fpm composer install
 	docker compose exec php-fpm php artisan key:generate
 	docker compose exec php-fpm php artisan migrate
-	docker compose exec next npm install
 
 # ------------------------------
 # コンテナ起動・停止・再起動・削除
@@ -55,62 +54,3 @@ clean: ## 完全クリーンアップ（確認プロンプト付き）
 	@echo ""
 	@read -p "本当に続行しますか？ (y/N): " confirm && [ "$$confirm" = "y" ] || exit 1
 	docker compose down --rmi all --volumes --remove-orphans 
-
-# ------------------------------
-# Laravelコンテナに接続
-# ------------------------------
-.PHONY: laravel
-laravel: ## Laravelコンテナに接続
-	docker compose exec php-fpm bash
-
-# ------------------------------
-# Next.jsコンテナに接続
-# ------------------------------
-.PHONY: next
-next: ## Next.jsコンテナに接続
-	docker compose exec next ash
-
-# ------------------------------
-# MySQLコンテナに接続
-# ------------------------------
-.PHONY: mysql
-mysql: ## MySQLに接続
-	docker compose exec mysql mysql -u$(MYSQL_USER) -p$(MYSQL_PASSWORD) $(MYSQL_DATABASE)
-
-.PHONY: mysql-root
-mysql-root: ## MySQLにrootユーザーで接続
-	docker compose exec mysql mysql -uroot -p$(MYSQL_ROOT_PASSWORD)
-
-.PHONY: mysql-status
-mysql-status: ## MySQLの状態確認
-	docker compose exec mysql mysql -u$(MYSQL_USER) -p$(MYSQL_PASSWORD) -e "SHOW DATABASES;"
-
-# ------------------------------
-# ログ
-# ------------------------------
-.PHONY: logs
-logs: ## 全ログを表示
-	docker compose logs -f
-
-.PHONY: logs-mysql
-logs-mysql: ## MySQLログを表示
-	docker compose logs -f mysql
-
-.PHONY: logs-php
-logs-php: ## PHPログを表示
-	docker compose logs -f php-fpm
-
-.PHONY: logs-next
-logs-next: ## Next.jsログを表示
-	docker compose logs -f next
-
-.PHONY: logs-nginx
-logs-nginx: ## Nginxログを表示
-	docker compose logs -f nginx
-
-# ------------------------------
-# コンテナステータス
-# ------------------------------
-.PHONY: status
-status: ## コンテナの状態確認
-	docker compose ps
