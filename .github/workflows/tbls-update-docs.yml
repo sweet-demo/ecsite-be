@@ -5,12 +5,12 @@ on:
     branches:
       - develop
     paths:
-      - 'be/database/migrations/**'
+      - 'src/database/migrations/**'
   pull_request:
     branches:
       - develop
     paths:
-      - 'be/database/migrations/**'
+      - 'src/database/migrations/**'
 
 jobs:
   update-docs:
@@ -47,14 +47,14 @@ jobs:
         uses: k1low/setup-tbls@v1
 
       - name: Setup Laravel project
-        working-directory: ./be
+        working-directory: ./src
         run: |
           composer install --no-interaction --prefer-dist --optimize-autoloader
           cp .env.local .env
           php artisan key:generate
 
       - name: Configure database connection
-        working-directory: ./be
+        working-directory: ./src
         run: |
           # .envファイルにデータベース設定を追加
           echo "DB_CONNECTION=mysql" >> .env
@@ -66,7 +66,7 @@ jobs:
           echo "APP_ENV=testing" >> .env
 
       - name: Verify tbls configuration
-        working-directory: ./be
+        working-directory: ./src
         run: |
           echo "Checking tbls.yml configuration..."
           if [ -f "tbls.yml" ]; then
@@ -95,7 +95,7 @@ jobs:
           done
 
       - name: Run migrations
-        working-directory: ./be
+        working-directory: ./src
         run: |
           echo "Running Laravel migrations..."
           php artisan migrate --force
@@ -106,7 +106,7 @@ jobs:
           mysql -h 127.0.0.1 -P 3306 -u root -ppassword laravel -e "SHOW TABLES;"
 
       - name: Generate documentation
-        working-directory: ./be
+        working-directory: ./src
         run: |
           mkdir -p ../docs
           echo "Generating database documentation..."
