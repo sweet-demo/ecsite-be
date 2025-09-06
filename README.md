@@ -11,9 +11,7 @@ $ make init
 ```
 
 ## アクセスURL
-
-- **フロントエンド**: https://localhost
-- **バックエンドAPI**: https://api.localhost
+https://api.localhost
 
 ## コミット
 初回コミット前に以下を実行
@@ -39,8 +37,7 @@ git commit
 
 ```
 ecsite/
-├── be/                 # Laravel 12 バックエンド
-├── fe/                 # Next.js 15 フロントエンド
+├── src/                 # Laravel 12 バックエンド
 ├── infra/
 │   ├── php/            # php Dockerファイル
 │   ├── mysql/          # mysql Dockerファイル
@@ -56,6 +53,4 @@ ecsite/
 | PHP              | 8.2      |
 | Laravel          | 12       |
 | MySQL            | 8.0      |
-| Next.js          | 15.4     |
-| TypeScript       | 5        |
 | Nginx            | 1.29     |
