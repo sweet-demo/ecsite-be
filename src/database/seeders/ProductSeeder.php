@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Product;
 use App\Models\Tag;
+use App\Models\Allergie;
 use Illuminate\Database\Seeder;
 use Illuminate\Http\UploadedFile;
 
@@ -14,6 +15,7 @@ class ProductSeeder extends Seeder
         'スイートベリーケーキ' => [
             'image' => 'SweetBerryCake.jpg',
             'tags' => ['ホールケーキ'],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'スイートベリーケーキ',
                 'kind' => Product::KIND_CAKE,
@@ -30,6 +32,7 @@ class ProductSeeder extends Seeder
         'ストロベリーホールケーキ' => [
             'image' => 'StrawberryWholeCake1.jpg',
             'tags' => ['ホールケーキ'],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'ストロベリーホールケーキ',
                 'kind' => Product::KIND_CAKE,
@@ -46,6 +49,7 @@ class ProductSeeder extends Seeder
         'ストロベリームースケーキ' => [
             'image' => 'StrawberryMousseCake1.jpg',
             'tags' => ['ホールケーキ'],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'ストロベリームースケーキ',
                 'kind' => Product::KIND_CAKE,
@@ -62,6 +66,7 @@ class ProductSeeder extends Seeder
         'モンブランケーキ' => [
             'image' => 'MontBlancCake.jpg',
             'tags' => ['ホールケーキ'],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'モンブランケーキ',
                 'kind' => Product::KIND_CAKE,
@@ -78,6 +83,7 @@ class ProductSeeder extends Seeder
         'チョコレートホールケーキ' => [
             'image' => 'ChocolateWholeCake1.jpg',
             'tags' => ['ホールケーキ'],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'チョコレートホールケーキ',
                 'kind' => Product::KIND_CAKE,
@@ -95,6 +101,7 @@ class ProductSeeder extends Seeder
         'レモンムースタルト' => [
             'image' => 'LemonMousseTart.jpg',
             'tags' => ['期間限定'],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'レモンムースタルト',
                 'kind' => Product::KIND_CAKE,
@@ -112,6 +119,7 @@ class ProductSeeder extends Seeder
         'ストロベリーモンブラン' => [
             'image' => 'StrawberryMont Blanc1.jpg',
             'tags' => ['新商品'],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'ストロベリーモンブラン',
                 'kind' => Product::KIND_CAKE,
@@ -129,6 +137,7 @@ class ProductSeeder extends Seeder
         'アップルパイ' => [
             'image' => 'ApplePie1.jpg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'アップルパイ',
                 'kind' => Product::KIND_CAKE,
@@ -145,6 +154,7 @@ class ProductSeeder extends Seeder
         'ベリータルト' => [
             'image' => 'BerryTart.jpg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'ベリータルト',
                 'kind' => Product::KIND_CAKE,
@@ -161,6 +171,7 @@ class ProductSeeder extends Seeder
         'ビターマッチャケーキ' => [
             'image' => 'BitterMatchaCake.jpg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'ビターマッチャケーキ',
                 'kind' => Product::KIND_CAKE,
@@ -177,6 +188,7 @@ class ProductSeeder extends Seeder
         'ブルーベリーケーキ' => [
             'image' => 'BlueberryCake.jpeg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'ブルーベリーケーキ',
                 'kind' => Product::KIND_CAKE,
@@ -193,6 +205,7 @@ class ProductSeeder extends Seeder
         'ブルーベリーチーズケーキ' => [
             'image' => 'BlueberryCheesecake.jpeg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'ブルーベリーチーズケーキ',
                 'kind' => Product::KIND_CAKE,
@@ -209,6 +222,7 @@ class ProductSeeder extends Seeder
         'カヌレ' => [
             'image' => 'Canele.jpeg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'カヌレ',
                 'kind' => Product::KIND_CAKE,
@@ -225,6 +239,7 @@ class ProductSeeder extends Seeder
         'チーズケーキ' => [
             'image' => 'CheeseCake.jpeg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'チーズケーキ',
                 'kind' => Product::KIND_CAKE,
@@ -241,6 +256,7 @@ class ProductSeeder extends Seeder
         'チョコレートケーキ' => [
             'image' => 'ChocolateCake.jpeg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'チョコレートケーキ',
                 'kind' => Product::KIND_CAKE,
@@ -257,6 +273,7 @@ class ProductSeeder extends Seeder
         'チョコレートロールケーキ' => [
             'image' => 'ChocolateRollCake.jpg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'チョコレートロールケーキ',
                 'kind' => Product::KIND_CAKE,
@@ -273,6 +290,7 @@ class ProductSeeder extends Seeder
         'ガトーショコラ' => [
             'image' => 'GateauChocolat.jpg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'ガトーショコラ',
                 'kind' => Product::KIND_CAKE,
@@ -289,6 +307,7 @@ class ProductSeeder extends Seeder
         'ミニタルト' => [
             'image' => 'MiniTart.jpg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'ミニタルト',
                 'kind' => Product::KIND_CAKE,
@@ -305,6 +324,7 @@ class ProductSeeder extends Seeder
         'モンブラン' => [
             'image' => 'MontBlan1.jpg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'モンブラン',
                 'kind' => Product::KIND_CAKE,
@@ -321,6 +341,7 @@ class ProductSeeder extends Seeder
         'マスカットケーキ' => [
             'image' => 'MuscatCake.jpg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'マスカットケーキ',
                 'kind' => Product::KIND_CAKE,
@@ -337,6 +358,7 @@ class ProductSeeder extends Seeder
         'マスカットロールケーキ' => [
             'image' => 'MuscatRollCake.jpg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'マスカットロールケーキ',
                 'kind' => Product::KIND_CAKE,
@@ -353,6 +375,7 @@ class ProductSeeder extends Seeder
         'ナポレオンパイ' => [
             'image' => 'NapoleonPie.jpg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'ナポレオンパイ',
                 'kind' => Product::KIND_CAKE,
@@ -369,6 +392,7 @@ class ProductSeeder extends Seeder
         'オレンジパウンドケーキ' => [
             'image' => 'OrangePoundCake.jpg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'オレンジパウンドケーキ',
                 'kind' => Product::KIND_CAKE,
@@ -385,6 +409,7 @@ class ProductSeeder extends Seeder
         'ピーチケーキ' => [
             'image' => 'PeachCake.jpg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'ピーチケーキ',
                 'kind' => Product::KIND_CAKE,
@@ -401,6 +426,7 @@ class ProductSeeder extends Seeder
         'ザッハトルテ' => [
             'image' => 'Sachertorte.jpg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'ザッハトルテ',
                 'kind' => Product::KIND_CAKE,
@@ -417,6 +443,7 @@ class ProductSeeder extends Seeder
         'ショートケーキ' => [
             'image' => 'ShortCake.jpg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'ショートケーキ',
                 'kind' => Product::KIND_CAKE,
@@ -433,6 +460,7 @@ class ProductSeeder extends Seeder
         'スフレケーキ' => [
             'image' => 'SouffleCake.jpg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'スフレケーキ',
                 'kind' => Product::KIND_CAKE,
@@ -449,6 +477,7 @@ class ProductSeeder extends Seeder
         'ティーシフォンケーキ' => [
             'image' => 'TeaChiffonCake.jpg',
             'tags' => [],
+            'allergies' => ['卵', '牛乳', '小麦'],
             'data' => [
                 'name' => 'ティーシフォンケーキ',
                 'kind' => Product::KIND_CAKE,
@@ -466,6 +495,9 @@ class ProductSeeder extends Seeder
 
     public function run(): void
     {
+        $tags = Tag::all();
+        $allergies = Allergie::all();
+
         foreach (self::PRODUCT_NAME_IMAGE_MAP as $productName => $productInfo) {
             $imagePath = database_path('seeders/CakeImages/'.$productInfo['image']);
 
@@ -475,8 +507,11 @@ class ProductSeeder extends Seeder
 
             $product = Product::create($productInfo['data']);
 
-            $tagsIds = Tag::whereIn('name', $productInfo['tags'])->get()->pluck('id');
+            $tagsIds = $tags->whereIn('name', $productInfo['tags'])->pluck('id');
             $product->tags()->attach($tagsIds);
+
+            $allergiesIds = $allergies->whereIn('name', $productInfo['allergies'])->pluck('id');
+            $product->allergies()->attach($allergiesIds);
 
             $product->cakeInfo()->create($productInfo['cake_info']);
         }

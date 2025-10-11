@@ -35,4 +35,9 @@ class Product extends Model
     {
         return $this->hasOne(CakeInfo::class);
     }
+
+    public function allergies(): BelongsToMany
+    {
+        return $this->belongsToMany(Allergie::class, 'allergie_product', 'product_id', 'allergie_id');
+    }
 }
