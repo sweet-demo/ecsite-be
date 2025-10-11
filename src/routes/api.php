@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\MeController;
 use App\Http\Controllers\Auth\RefreshController;
+use App\Http\Controllers\Cake\GetCakeListController;
 use App\Http\Controllers\User\EmailVerification\ResendController;
 use App\Http\Controllers\User\EmailVerification\VerifyController;
 use App\Http\Controllers\User\RegisterController;
@@ -26,6 +27,10 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('user')->group(function () {
     Route::post('register', RegisterController::class);
+});
+
+Route::prefix('cake')->group(function () {
+    Route::get('/', GetCakeListController::class);
 });
 
 // メール認証関連のルート（認証前の処理）

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -26,6 +27,13 @@ class Product extends Model
         'size',
     ];
 
+    protected $hidden = [
+        'pivot',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class, 'product_tag', 'product_id', 'tag_id');
@@ -39,5 +47,17 @@ class Product extends Model
     public function allergies(): BelongsToMany
     {
         return $this->belongsToMany(Allergie::class, 'allergie_product', 'product_id', 'allergie_id');
+    }
+
+    /**
+     * 画像の完全なURLを取得
+     */
+    public function getImageUrlAttribute(): ?string
+    {
+        if (!$this->image) {
+            return null;
+        }
+
+        return Storage::url($this->image);
     }
 }

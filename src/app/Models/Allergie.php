@@ -17,6 +17,13 @@ class Allergie extends Model
         'kind',
     ];
 
+    protected $hidden = [
+        'pivot',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'allergie_product', 'allergie_id', 'product_id');

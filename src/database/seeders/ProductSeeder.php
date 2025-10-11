@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Allergie;
 use App\Models\Product;
 use App\Models\Tag;
-use App\Models\Allergie;
 use Illuminate\Database\Seeder;
 use Illuminate\Http\UploadedFile;
 
