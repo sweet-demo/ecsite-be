@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->id();
             $table->tinyInteger('kind');
             $table->string('name');
-            $table->string('image');
             $table->tinyInteger('status');
             $table->decimal('base_price', 8, 2);
             $table->decimal('size', 5, 2);
