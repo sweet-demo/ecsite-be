@@ -503,9 +503,11 @@ class ProductSeeder extends Seeder
 
             $uploadedImage = new UploadedFile($imagePath, basename($imagePath), mime_content_type($imagePath), null, true);
 
-            $productInfo['data']['image'] = $uploadedImage->store('products', 'public');
-
             $product = Product::create($productInfo['data']);
+
+            $uploadedImageUrls = [];
+            $uploadedImageUrls[] = ['image' => $uploadedImage->store('products', 'public')];
+            $product->images()->createMany($uploadedImageUrls);
 
             $tagsIds = $tags->whereIn('name', $productInfo['tags'])->pluck('id');
             $product->tags()->attach($tagsIds);
