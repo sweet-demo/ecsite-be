@@ -62,3 +62,18 @@ services:
       - php-fpm
     networks:
       - ecsite_network
+
+  mail:
+    container_name: ecsite_mail
+    image: axllent/mailpit
+    ports:
+      - ${MAIL_HTTP_PORT}:8025
+      - ${MAIL_SMTP_PORT}:1025
+    restart: unless-stopped
+    volumes:
+      - ${VOLUME}/mailpit-data:/data:rw
+    networks:
+      - ecsite_network
+    environment:
+      - MP_DATABASE=/data/mailpit.db
+      - TZ=Asia/Tokyo
