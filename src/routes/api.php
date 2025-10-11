@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\User\EmailVerificationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\MeController;
 use App\Http\Controllers\Auth\RefreshController;
+use App\Http\Controllers\User\EmailVerification\ResendController;
+use App\Http\Controllers\User\EmailVerification\VerifyController;
 use App\Http\Controllers\User\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,8 +30,8 @@ Route::prefix('user')->group(function () {
 
 // メール認証関連のルート（認証前の処理）
 Route::prefix('email')->group(function () {
-    Route::get('verify', [EmailVerificationController::class, 'verify']);
-    Route::post('resend', [EmailVerificationController::class, 'resend']);
+    Route::get('verify', VerifyController::class);
+    Route::post('resend', ResendController::class);
 });
 
 Route::middleware('jwt.auth')->prefix('auth')->group(function () {
