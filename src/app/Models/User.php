@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
@@ -26,6 +26,8 @@ class User extends Authenticatable implements JWTSubject
         'status',
         'email',
         'password',
+        'email_verified_at',
+        'email_verification_token',
     ];
 
     /**
@@ -36,6 +38,7 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verification_token',
     ];
 
     /**
@@ -67,5 +70,33 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    /**
+     * メール認証トークンを生成
+     */
+    public function generateEmailVerificationToken()
+    {
+        $this->email_verification_token = bin2hex(random_bytes(32));
+        $this->save();
+        return $this->email_verification_token;
+    }
+
+    /**
+     * メール認証を完了
+     */
+    public function markEmailAsVerified()
+    {
+        $this->email_verified_at = now();
+        $this->email_verification_token = null;
+        $this->save();
+    }
+
+    /**
+     * メール認証済みかチェック
+     */
+    public function isEmailVerified()
+    {
+        return !is_null($this->email_verified_at);
     }
 }
