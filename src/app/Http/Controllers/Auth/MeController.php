@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\BaseController;
+use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -10,10 +11,8 @@ final class MeController extends BaseController
 {
     /**
      * ユーザー情報取得
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke()
+    public function __invoke(): JsonResponse
     {
         $user = JWTAuth::parseToken()->authenticate();
 

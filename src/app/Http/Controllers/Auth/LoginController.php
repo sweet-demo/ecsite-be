@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\LoginRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -12,10 +13,8 @@ final class LoginController extends BaseController
 {
     /**
      * ログイン
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(LoginRequest $request)
+    public function __invoke(LoginRequest $request): JsonResponse
     {
         $credentials = $request->only('email', 'password');
 

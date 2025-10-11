@@ -9,21 +9,19 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class EmailVerificationMail extends Mailable
+class AlreadyRegisteredMail extends Mailable
 {
     use Queueable;
     use SerializesModels;
 
     public User $user;
-    public string $token;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(User $user, string $token)
+    public function __construct(User $user)
     {
         $this->user = $user;
-        $this->token = $token;
     }
 
     /**
@@ -42,10 +40,9 @@ class EmailVerificationMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.email-verification',
+            view: 'emails.already-registered',
             with: [
                 'user' => $this->user,
-                'verificationUrl' => config('app.url').'/api/email/verify?token='.$this->token,
             ],
         );
     }

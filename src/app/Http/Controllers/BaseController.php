@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class BaseController extends Controller
@@ -9,9 +10,9 @@ abstract class BaseController extends Controller
     /**
      * 成功レスポンスを返す
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @param mixed|null $data
      */
-    protected function successResponse(string $message, $data = null, int $statusCode = Response::HTTP_OK)
+    protected function successResponse(string $message, $data = null, int $statusCode = Response::HTTP_OK): JsonResponse
     {
         $response = [
             'success' => true,
@@ -27,10 +28,8 @@ abstract class BaseController extends Controller
 
     /**
      * エラーレスポンスを返す
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
-    protected function errorResponse(string $message, int $statusCode = Response::HTTP_BAD_REQUEST, ?string $error = null)
+    protected function errorResponse(string $message, int $statusCode = Response::HTTP_BAD_REQUEST, ?string $error = null): JsonResponse
     {
         $response = [
             'success' => false,
