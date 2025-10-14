@@ -54,7 +54,9 @@ services:
     container_name: ecsite_nginx
     restart: unless-stopped
     volumes:
+      - ./src:/var/www/html
       - ./infra/nginx/ssl:/etc/nginx/ssl:ro
+      - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     ports:
       - "80:80"
       - "443:443"
@@ -62,3 +64,18 @@ services:
       - php-fpm
     networks:
       - ecsite_network
+
+  mail:
+    container_name: ecsite_mail
+    image: axllent/mailpit
+    ports:
+      - ${MAIL_HTTP_PORT}:8025
+      - ${MAIL_SMTP_PORT}:1025
+    restart: unless-stopped
+    volumes:
+      - ${VOLUME}/mailpit-data:/data:rw
+    networks:
+      - ecsite_network
+    environment:
+      - MP_DATABASE=/data/mailpit.db
+      - TZ=Asia/Tokyo

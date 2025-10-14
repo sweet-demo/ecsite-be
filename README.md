@@ -5,9 +5,17 @@
 ```bash
 $ git clone git@github.com:sweet-demo/ecsite.git
 $ cd ecsite
+$ docker compose up -d --build
+$ docker compose exec php-fpm cp .env.local .env
+$ docker compose exec php-fpm composer install
+$ docker compose exec php-fpm php artisan key:generate
+$ docker compose exec php-fpm php artisan migrate
+$ docker compose exec php-fpm php artisan db:seed
+```
 
-# 初回セットアップ（環境変数作成、ビルド、環境設定、マイグレーション）
-$ make init
+## フォーマッター
+```
+$ docker compose exec php-fpm composer format
 ```
 
 ## アクセスURL
@@ -44,7 +52,6 @@ ecsite/
 │   ├── next/           # node Dockerファイル
 │   └── nginx/          # nginx Dockerファイル
 ├── docker-compose.yml  # Docker Compose
-├── Makefile            # 開発用コマンド
 └── README.md
 ```
 
