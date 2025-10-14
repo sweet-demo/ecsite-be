@@ -1,6 +1,7 @@
 name: Update Database Documentation
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - develop
