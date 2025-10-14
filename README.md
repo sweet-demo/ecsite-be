@@ -19,7 +19,10 @@ $ docker compose exec php-fpm composer format
 ```
 
 ## アクセスURL
-https://api.localhost
+| サービス       | URL                     |
+|---------------|-------------------------|
+| メールサーバー   | http://localhost:8025   |
+| API           | https://api.localhost   |
 
 ## コミット
 初回コミット前に以下を実行
