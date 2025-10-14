@@ -1,0 +1,1575 @@
+{
+  "name": "laravel",
+  "tables": [
+    {
+      "name": "allergie_product",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint unsigned",
+          "nullable": false,
+          "extra_def": "auto_increment"
+        },
+        {
+          "name": "allergie_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "product_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "allergie_product_allergie_id_foreign",
+          "def": "KEY allergie_product_allergie_id_foreign (allergie_id) USING BTREE",
+          "table": "allergie_product",
+          "columns": [
+            "allergie_id"
+          ]
+        },
+        {
+          "name": "allergie_product_product_id_foreign",
+          "def": "KEY allergie_product_product_id_foreign (product_id) USING BTREE",
+          "table": "allergie_product",
+          "columns": [
+            "product_id"
+          ]
+        },
+        {
+          "name": "PRIMARY",
+          "def": "PRIMARY KEY (id) USING BTREE",
+          "table": "allergie_product",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "allergie_product_allergie_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (allergie_id) REFERENCES allergies (id)",
+          "table": "allergie_product",
+          "referenced_table": "allergies",
+          "columns": [
+            "allergie_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "allergie_product_product_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (product_id) REFERENCES products (id)",
+          "table": "allergie_product",
+          "referenced_table": "products",
+          "columns": [
+            "product_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "PRIMARY",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "allergie_product",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "def": "CREATE TABLE `allergie_product` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `allergie_id` bigint unsigned NOT NULL,\n  `product_id` bigint unsigned NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `allergie_product_allergie_id_foreign` (`allergie_id`),\n  KEY `allergie_product_product_id_foreign` (`product_id`),\n  CONSTRAINT `allergie_product_allergie_id_foreign` FOREIGN KEY (`allergie_id`) REFERENCES `allergies` (`id`),\n  CONSTRAINT `allergie_product_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "name": "allergies",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint unsigned",
+          "nullable": false,
+          "extra_def": "auto_increment"
+        },
+        {
+          "name": "kind",
+          "type": "tinyint",
+          "nullable": false
+        },
+        {
+          "name": "name",
+          "type": "varchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "PRIMARY",
+          "def": "PRIMARY KEY (id) USING BTREE",
+          "table": "allergies",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "PRIMARY",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "allergies",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "def": "CREATE TABLE `allergies` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `kind` tinyint NOT NULL,\n  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "name": "cake_infos",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint unsigned",
+          "nullable": false,
+          "extra_def": "auto_increment"
+        },
+        {
+          "name": "product_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "catchphrase",
+          "type": "varchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "calorie",
+          "type": "decimal(6,2)",
+          "nullable": false
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "cake_infos_product_id_foreign",
+          "def": "KEY cake_infos_product_id_foreign (product_id) USING BTREE",
+          "table": "cake_infos",
+          "columns": [
+            "product_id"
+          ]
+        },
+        {
+          "name": "PRIMARY",
+          "def": "PRIMARY KEY (id) USING BTREE",
+          "table": "cake_infos",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "cake_infos_product_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (product_id) REFERENCES products (id)",
+          "table": "cake_infos",
+          "referenced_table": "products",
+          "columns": [
+            "product_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "PRIMARY",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "cake_infos",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "def": "CREATE TABLE `cake_infos` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `product_id` bigint unsigned NOT NULL,\n  `catchphrase` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `calorie` decimal(6,2) NOT NULL,\n  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `cake_infos_product_id_foreign` (`product_id`),\n  CONSTRAINT `cake_infos_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "name": "cart_products",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint unsigned",
+          "nullable": false,
+          "extra_def": "auto_increment"
+        },
+        {
+          "name": "user_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "product_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "cart_products_product_id_foreign",
+          "def": "KEY cart_products_product_id_foreign (product_id) USING BTREE",
+          "table": "cart_products",
+          "columns": [
+            "product_id"
+          ]
+        },
+        {
+          "name": "cart_products_user_id_foreign",
+          "def": "KEY cart_products_user_id_foreign (user_id) USING BTREE",
+          "table": "cart_products",
+          "columns": [
+            "user_id"
+          ]
+        },
+        {
+          "name": "PRIMARY",
+          "def": "PRIMARY KEY (id) USING BTREE",
+          "table": "cart_products",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "cart_products_product_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (product_id) REFERENCES products (id)",
+          "table": "cart_products",
+          "referenced_table": "products",
+          "columns": [
+            "product_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "cart_products_user_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (user_id) REFERENCES users (id)",
+          "table": "cart_products",
+          "referenced_table": "users",
+          "columns": [
+            "user_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "PRIMARY",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "cart_products",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "def": "CREATE TABLE `cart_products` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `user_id` bigint unsigned NOT NULL,\n  `product_id` bigint unsigned NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `cart_products_user_id_foreign` (`user_id`),\n  KEY `cart_products_product_id_foreign` (`product_id`),\n  CONSTRAINT `cart_products_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),\n  CONSTRAINT `cart_products_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "name": "order_product_stock",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint unsigned",
+          "nullable": false,
+          "extra_def": "auto_increment"
+        },
+        {
+          "name": "order_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "product_stock_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "order_product_stock_order_id_foreign",
+          "def": "KEY order_product_stock_order_id_foreign (order_id) USING BTREE",
+          "table": "order_product_stock",
+          "columns": [
+            "order_id"
+          ]
+        },
+        {
+          "name": "order_product_stock_product_stock_id_foreign",
+          "def": "KEY order_product_stock_product_stock_id_foreign (product_stock_id) USING BTREE",
+          "table": "order_product_stock",
+          "columns": [
+            "product_stock_id"
+          ]
+        },
+        {
+          "name": "PRIMARY",
+          "def": "PRIMARY KEY (id) USING BTREE",
+          "table": "order_product_stock",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "order_product_stock_order_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (order_id) REFERENCES orders (id)",
+          "table": "order_product_stock",
+          "referenced_table": "orders",
+          "columns": [
+            "order_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "order_product_stock_product_stock_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (product_stock_id) REFERENCES product_stocks (id)",
+          "table": "order_product_stock",
+          "referenced_table": "product_stocks",
+          "columns": [
+            "product_stock_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "PRIMARY",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "order_product_stock",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "def": "CREATE TABLE `order_product_stock` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `order_id` bigint unsigned NOT NULL,\n  `product_stock_id` bigint unsigned NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `order_product_stock_order_id_foreign` (`order_id`),\n  KEY `order_product_stock_product_stock_id_foreign` (`product_stock_id`),\n  CONSTRAINT `order_product_stock_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),\n  CONSTRAINT `order_product_stock_product_stock_id_foreign` FOREIGN KEY (`product_stock_id`) REFERENCES `product_stocks` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "name": "orders",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint unsigned",
+          "nullable": false,
+          "extra_def": "auto_increment"
+        },
+        {
+          "name": "user_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "tinyint",
+          "nullable": false
+        },
+        {
+          "name": "order_at",
+          "type": "datetime",
+          "nullable": false
+        },
+        {
+          "name": "note",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "orders_user_id_foreign",
+          "def": "KEY orders_user_id_foreign (user_id) USING BTREE",
+          "table": "orders",
+          "columns": [
+            "user_id"
+          ]
+        },
+        {
+          "name": "PRIMARY",
+          "def": "PRIMARY KEY (id) USING BTREE",
+          "table": "orders",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "orders_user_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (user_id) REFERENCES users (id)",
+          "table": "orders",
+          "referenced_table": "users",
+          "columns": [
+            "user_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "PRIMARY",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "orders",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "def": "CREATE TABLE `orders` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `user_id` bigint unsigned NOT NULL,\n  `status` tinyint NOT NULL,\n  `order_at` datetime NOT NULL,\n  `note` text COLLATE utf8mb4_unicode_ci NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `orders_user_id_foreign` (`user_id`),\n  CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "name": "product_images",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint unsigned",
+          "nullable": false,
+          "extra_def": "auto_increment"
+        },
+        {
+          "name": "product_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "image",
+          "type": "varchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "product_images_product_id_foreign",
+          "def": "KEY product_images_product_id_foreign (product_id) USING BTREE",
+          "table": "product_images",
+          "columns": [
+            "product_id"
+          ]
+        },
+        {
+          "name": "PRIMARY",
+          "def": "PRIMARY KEY (id) USING BTREE",
+          "table": "product_images",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "PRIMARY",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "product_images",
+          "columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "product_images_product_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (product_id) REFERENCES products (id)",
+          "table": "product_images",
+          "referenced_table": "products",
+          "columns": [
+            "product_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        }
+      ],
+      "def": "CREATE TABLE `product_images` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `product_id` bigint unsigned NOT NULL,\n  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `product_images_product_id_foreign` (`product_id`),\n  CONSTRAINT `product_images_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "name": "product_stocks",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint unsigned",
+          "nullable": false,
+          "extra_def": "auto_increment"
+        },
+        {
+          "name": "product_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "product_stocks_product_id_foreign",
+          "def": "KEY product_stocks_product_id_foreign (product_id) USING BTREE",
+          "table": "product_stocks",
+          "columns": [
+            "product_id"
+          ]
+        },
+        {
+          "name": "PRIMARY",
+          "def": "PRIMARY KEY (id) USING BTREE",
+          "table": "product_stocks",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "PRIMARY",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "product_stocks",
+          "columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "product_stocks_product_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (product_id) REFERENCES products (id)",
+          "table": "product_stocks",
+          "referenced_table": "products",
+          "columns": [
+            "product_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        }
+      ],
+      "def": "CREATE TABLE `product_stocks` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `product_id` bigint unsigned NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `product_stocks_product_id_foreign` (`product_id`),\n  CONSTRAINT `product_stocks_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "name": "product_tag",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint unsigned",
+          "nullable": false,
+          "extra_def": "auto_increment"
+        },
+        {
+          "name": "product_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "tag_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "product_tag_product_id_foreign",
+          "def": "KEY product_tag_product_id_foreign (product_id) USING BTREE",
+          "table": "product_tag",
+          "columns": [
+            "product_id"
+          ]
+        },
+        {
+          "name": "product_tag_tag_id_foreign",
+          "def": "KEY product_tag_tag_id_foreign (tag_id) USING BTREE",
+          "table": "product_tag",
+          "columns": [
+            "tag_id"
+          ]
+        },
+        {
+          "name": "PRIMARY",
+          "def": "PRIMARY KEY (id) USING BTREE",
+          "table": "product_tag",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "PRIMARY",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "product_tag",
+          "columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "product_tag_product_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (product_id) REFERENCES products (id)",
+          "table": "product_tag",
+          "referenced_table": "products",
+          "columns": [
+            "product_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "product_tag_tag_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (tag_id) REFERENCES tags (id)",
+          "table": "product_tag",
+          "referenced_table": "tags",
+          "columns": [
+            "tag_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        }
+      ],
+      "def": "CREATE TABLE `product_tag` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `product_id` bigint unsigned NOT NULL,\n  `tag_id` bigint unsigned NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `product_tag_product_id_foreign` (`product_id`),\n  KEY `product_tag_tag_id_foreign` (`tag_id`),\n  CONSTRAINT `product_tag_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,\n  CONSTRAINT `product_tag_tag_id_foreign` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE ON UPDATE CASCADE\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "name": "products",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint unsigned",
+          "nullable": false,
+          "extra_def": "auto_increment"
+        },
+        {
+          "name": "kind",
+          "type": "tinyint",
+          "nullable": false
+        },
+        {
+          "name": "name",
+          "type": "varchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "tinyint",
+          "nullable": false
+        },
+        {
+          "name": "base_price",
+          "type": "decimal(8,2)",
+          "nullable": false
+        },
+        {
+          "name": "size",
+          "type": "decimal(5,2)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "deleted_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "PRIMARY",
+          "def": "PRIMARY KEY (id) USING BTREE",
+          "table": "products",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "PRIMARY",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "products",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "def": "CREATE TABLE `products` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `kind` tinyint NOT NULL,\n  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `status` tinyint NOT NULL,\n  `base_price` decimal(8,2) NOT NULL,\n  `size` decimal(5,2) NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  `deleted_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "name": "shop_product",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint unsigned",
+          "nullable": false,
+          "extra_def": "auto_increment"
+        },
+        {
+          "name": "shop_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "product_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "shop_product_product_id_foreign",
+          "def": "KEY shop_product_product_id_foreign (product_id) USING BTREE",
+          "table": "shop_product",
+          "columns": [
+            "product_id"
+          ]
+        },
+        {
+          "name": "shop_product_shop_id_foreign",
+          "def": "KEY shop_product_shop_id_foreign (shop_id) USING BTREE",
+          "table": "shop_product",
+          "columns": [
+            "shop_id"
+          ]
+        },
+        {
+          "name": "PRIMARY",
+          "def": "PRIMARY KEY (id) USING BTREE",
+          "table": "shop_product",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "PRIMARY",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "shop_product",
+          "columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "shop_product_product_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (product_id) REFERENCES products (id)",
+          "table": "shop_product",
+          "referenced_table": "products",
+          "columns": [
+            "product_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "shop_product_shop_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (shop_id) REFERENCES shops (id)",
+          "table": "shop_product",
+          "referenced_table": "shops",
+          "columns": [
+            "shop_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        }
+      ],
+      "def": "CREATE TABLE `shop_product` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `shop_id` bigint unsigned NOT NULL,\n  `product_id` bigint unsigned NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `shop_product_shop_id_foreign` (`shop_id`),\n  KEY `shop_product_product_id_foreign` (`product_id`),\n  CONSTRAINT `shop_product_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),\n  CONSTRAINT `shop_product_shop_id_foreign` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "name": "shops",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint unsigned",
+          "nullable": false,
+          "extra_def": "auto_increment"
+        },
+        {
+          "name": "kind",
+          "type": "tinyint",
+          "nullable": false
+        },
+        {
+          "name": "name",
+          "type": "varchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "tel1",
+          "type": "varchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "tel2",
+          "type": "varchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "tel3",
+          "type": "varchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "deleted_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "PRIMARY",
+          "def": "PRIMARY KEY (id) USING BTREE",
+          "table": "shops",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "PRIMARY",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "shops",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "def": "CREATE TABLE `shops` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `kind` tinyint NOT NULL,\n  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `tel1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `tel2` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `tel3` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  `deleted_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "name": "tags",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint unsigned",
+          "nullable": false,
+          "extra_def": "auto_increment"
+        },
+        {
+          "name": "name",
+          "type": "varchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "PRIMARY",
+          "def": "PRIMARY KEY (id) USING BTREE",
+          "table": "tags",
+          "columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "tags_name_unique",
+          "def": "UNIQUE KEY tags_name_unique (name) USING BTREE",
+          "table": "tags",
+          "columns": [
+            "name"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "PRIMARY",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "tags",
+          "columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "tags_name_unique",
+          "type": "UNIQUE",
+          "def": "UNIQUE KEY tags_name_unique (name)",
+          "table": "tags",
+          "columns": [
+            "name"
+          ]
+        }
+      ],
+      "def": "CREATE TABLE `tags` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `tags_name_unique` (`name`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "name": "user_allergie",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint unsigned",
+          "nullable": false,
+          "extra_def": "auto_increment"
+        },
+        {
+          "name": "user_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "allergie_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "user_allergie_allergie_id_foreign",
+          "def": "KEY user_allergie_allergie_id_foreign (allergie_id) USING BTREE",
+          "table": "user_allergie",
+          "columns": [
+            "allergie_id"
+          ]
+        },
+        {
+          "name": "user_allergie_user_id_foreign",
+          "def": "KEY user_allergie_user_id_foreign (user_id) USING BTREE",
+          "table": "user_allergie",
+          "columns": [
+            "user_id"
+          ]
+        },
+        {
+          "name": "PRIMARY",
+          "def": "PRIMARY KEY (id) USING BTREE",
+          "table": "user_allergie",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "PRIMARY",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "user_allergie",
+          "columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "user_allergie_allergie_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (allergie_id) REFERENCES allergies (id)",
+          "table": "user_allergie",
+          "referenced_table": "allergies",
+          "columns": [
+            "allergie_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "user_allergie_user_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (user_id) REFERENCES users (id)",
+          "table": "user_allergie",
+          "referenced_table": "users",
+          "columns": [
+            "user_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        }
+      ],
+      "def": "CREATE TABLE `user_allergie` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `user_id` bigint unsigned NOT NULL,\n  `allergie_id` bigint unsigned NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `user_allergie_user_id_foreign` (`user_id`),\n  KEY `user_allergie_allergie_id_foreign` (`allergie_id`),\n  CONSTRAINT `user_allergie_allergie_id_foreign` FOREIGN KEY (`allergie_id`) REFERENCES `allergies` (`id`),\n  CONSTRAINT `user_allergie_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "name": "user_personal_infos",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint unsigned",
+          "nullable": false,
+          "extra_def": "auto_increment"
+        },
+        {
+          "name": "user_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "first_name",
+          "type": "varchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "last_name",
+          "type": "varchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "birthdate",
+          "type": "date",
+          "nullable": false
+        },
+        {
+          "name": "tel1",
+          "type": "varchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "tel2",
+          "type": "varchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "tel3",
+          "type": "varchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "user_personal_infos_user_id_foreign",
+          "def": "KEY user_personal_infos_user_id_foreign (user_id) USING BTREE",
+          "table": "user_personal_infos",
+          "columns": [
+            "user_id"
+          ]
+        },
+        {
+          "name": "PRIMARY",
+          "def": "PRIMARY KEY (id) USING BTREE",
+          "table": "user_personal_infos",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "PRIMARY",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "user_personal_infos",
+          "columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "user_personal_infos_user_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (user_id) REFERENCES users (id)",
+          "table": "user_personal_infos",
+          "referenced_table": "users",
+          "columns": [
+            "user_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        }
+      ],
+      "def": "CREATE TABLE `user_personal_infos` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `user_id` bigint unsigned NOT NULL,\n  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `birthdate` date NOT NULL,\n  `tel1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `tel2` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `tel3` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `user_personal_infos_user_id_foreign` (`user_id`),\n  CONSTRAINT `user_personal_infos_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "name": "users",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint unsigned",
+          "nullable": false,
+          "extra_def": "auto_increment"
+        },
+        {
+          "name": "status",
+          "type": "tinyint",
+          "nullable": false
+        },
+        {
+          "name": "email",
+          "type": "varchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "email_verified_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "email_verification_token",
+          "type": "varchar(255)",
+          "nullable": true
+        },
+        {
+          "name": "password",
+          "type": "varchar(255)",
+          "nullable": false
+        },
+        {
+          "name": "remember_token",
+          "type": "varchar(100)",
+          "nullable": true
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "deleted_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "PRIMARY",
+          "def": "PRIMARY KEY (id) USING BTREE",
+          "table": "users",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "PRIMARY",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "users",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "def": "CREATE TABLE `users` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `status` tinyint NOT NULL,\n  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `email_verified_at` timestamp NULL DEFAULT NULL,\n  `email_verification_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  `deleted_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    }
+  ],
+  "relations": [
+    {
+      "table": "allergie_product",
+      "columns": [
+        "allergie_id"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "allergies",
+      "parent_columns": [
+        "id"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (allergie_id) REFERENCES allergies (id)"
+    },
+    {
+      "table": "allergie_product",
+      "columns": [
+        "product_id"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "products",
+      "parent_columns": [
+        "id"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (product_id) REFERENCES products (id)"
+    },
+    {
+      "table": "cake_infos",
+      "columns": [
+        "product_id"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "products",
+      "parent_columns": [
+        "id"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (product_id) REFERENCES products (id)"
+    },
+    {
+      "table": "cart_products",
+      "columns": [
+        "product_id"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "products",
+      "parent_columns": [
+        "id"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (product_id) REFERENCES products (id)"
+    },
+    {
+      "table": "cart_products",
+      "columns": [
+        "user_id"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "users",
+      "parent_columns": [
+        "id"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (user_id) REFERENCES users (id)"
+    },
+    {
+      "table": "order_product_stock",
+      "columns": [
+        "order_id"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "orders",
+      "parent_columns": [
+        "id"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (order_id) REFERENCES orders (id)"
+    },
+    {
+      "table": "order_product_stock",
+      "columns": [
+        "product_stock_id"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "product_stocks",
+      "parent_columns": [
+        "id"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (product_stock_id) REFERENCES product_stocks (id)"
+    },
+    {
+      "table": "orders",
+      "columns": [
+        "user_id"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "users",
+      "parent_columns": [
+        "id"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (user_id) REFERENCES users (id)"
+    },
+    {
+      "table": "product_images",
+      "columns": [
+        "product_id"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "products",
+      "parent_columns": [
+        "id"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (product_id) REFERENCES products (id)"
+    },
+    {
+      "table": "product_stocks",
+      "columns": [
+        "product_id"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "products",
+      "parent_columns": [
+        "id"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (product_id) REFERENCES products (id)"
+    },
+    {
+      "table": "product_tag",
+      "columns": [
+        "product_id"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "products",
+      "parent_columns": [
+        "id"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (product_id) REFERENCES products (id)"
+    },
+    {
+      "table": "product_tag",
+      "columns": [
+        "tag_id"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "tags",
+      "parent_columns": [
+        "id"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (tag_id) REFERENCES tags (id)"
+    },
+    {
+      "table": "shop_product",
+      "columns": [
+        "product_id"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "products",
+      "parent_columns": [
+        "id"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (product_id) REFERENCES products (id)"
+    },
+    {
+      "table": "shop_product",
+      "columns": [
+        "shop_id"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "shops",
+      "parent_columns": [
+        "id"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (shop_id) REFERENCES shops (id)"
+    },
+    {
+      "table": "user_allergie",
+      "columns": [
+        "allergie_id"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "allergies",
+      "parent_columns": [
+        "id"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (allergie_id) REFERENCES allergies (id)"
+    },
+    {
+      "table": "user_allergie",
+      "columns": [
+        "user_id"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "users",
+      "parent_columns": [
+        "id"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (user_id) REFERENCES users (id)"
+    },
+    {
+      "table": "user_personal_infos",
+      "columns": [
+        "user_id"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "users",
+      "parent_columns": [
+        "id"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (user_id) REFERENCES users (id)"
+    }
+  ],
+  "driver": {
+    "name": "mysql",
+    "database_version": "8.0.43",
+    "meta": {
+      "dict": {
+        "Functions": "Stored procedures and functions"
+      }
+    }
+  }
+}
