@@ -1,0 +1,30 @@
+# tbls configuration for Laravel 12 project
+dsn: "mysql://root:password@127.0.0.1:3306/laravel"
+
+# ドキュメント出力設定
+docPath: "../docs"
+
+# 出力形式設定
+format:
+  er:
+    format: "svg"
+    output: "er.svg"
+    title: "Laravel 12 Database ER Diagram"
+  table:
+    format: "md"
+    output: "tables.md"
+    title: "Laravel 12 Database Tables"
+
+# 除外するテーブル（Laravelのシステムテーブル）
+exclude:
+  - "migrations"
+  - "failed_jobs"
+  - "password_reset_tokens"
+  - "personal_access_tokens"
+  - "sessions"
+  - "cache"
+  - "cache_locks"
+  - "jobs"
+  - "job_batches"
+  - "job_failed_jobs"
+  - "password_resets" 
