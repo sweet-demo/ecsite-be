@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\BaseController;
 use App\Http\Requests\RegisterRequest;
 use App\Services\User\RegisterService;
 use App\Services\User\RegisterServiceInputDto;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-final class RegisterController extends BaseController
+final class RegisterController
 {
     /**
      * ユーザー登録
@@ -22,13 +21,9 @@ final class RegisterController extends BaseController
             $inputDto = new RegisterServiceInputDto($request->email, $request->password);
             $registerService($inputDto);
 
-            return $this->successResponse(
-                'ユーザー登録が完了しました。認証メールを送信しましたので、メールボックスをご確認ください。',
-                [],
-                Response::HTTP_OK
-            );
+            return response()->json(['message' => 'ユーザー登録が完了しました'], Response::HTTP_OK);
         } catch (\Exception $e) {
-            return $this->errorResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

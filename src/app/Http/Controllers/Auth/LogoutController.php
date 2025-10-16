@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\BaseController;
 use Illuminate\Http\JsonResponse;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Symfony\Component\HttpFoundation\Response;
 
-final class LogoutController extends BaseController
+final class LogoutController
 {
     /**
      * ログアウト
@@ -14,6 +14,8 @@ final class LogoutController extends BaseController
     public function __invoke(): JsonResponse
     {
         JWTAuth::invalidate(JWTAuth::getToken());
-        return $this->successResponse('ログアウトしました');
+        return response()->json([
+            'message' => 'ログアウトしました',
+        ], Response::HTTP_OK);
     }
 }

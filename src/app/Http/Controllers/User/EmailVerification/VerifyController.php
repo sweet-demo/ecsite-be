@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\User\EmailVerification;
 
-use App\Http\Controllers\BaseController;
 use App\Services\User\EmailVerification\VerifyService;
 use App\Services\User\EmailVerification\VerifyServiceInputDto;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class VerifyController extends BaseController
+final class VerifyController
 {
     /**
      * メール認証
@@ -22,9 +21,9 @@ final class VerifyController extends BaseController
             $inputDto = new VerifyServiceInputDto($request->query('token'));
             $verifyService($inputDto);
 
-            return $this->successResponse('メール認証が完了しました', [], Response::HTTP_OK);
+            return response()->json(['message' => 'メール認証が完了しました'], Response::HTTP_OK);
         } catch (\Exception $e) {
-            return $this->errorResponse($e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

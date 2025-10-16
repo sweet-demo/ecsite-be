@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-final class MeController extends BaseController
+final class MeController
 {
     /**
      * ユーザー情報取得
@@ -17,9 +17,13 @@ final class MeController extends BaseController
         $user = JWTAuth::parseToken()->authenticate();
 
         if (!$user) {
-            return $this->errorResponse('ユーザーが見つかりません', Response::HTTP_NOT_FOUND);
+            return response()->json([
+                'message' => 'ユーザーが見つかりません',
+            ], Response::HTTP_NOT_FOUND);
         }
 
-        return $this->successResponse('ユーザー情報を取得しました', ['user' => $user]);
+        $userResource = new UserResource($user);
+
+        return response()->json($userResource, Response::HTTP_OK);
     }
 }

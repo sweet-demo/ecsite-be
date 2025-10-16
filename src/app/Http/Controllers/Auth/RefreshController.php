@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\BaseController;
 use Illuminate\Http\JsonResponse;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Symfony\Component\HttpFoundation\Response;
 
-final class RefreshController extends BaseController
+final class RefreshController
 {
     /**
      * トークンリフレッシュ
@@ -14,6 +14,6 @@ final class RefreshController extends BaseController
     public function __invoke(): JsonResponse
     {
         $token = JWTAuth::refresh(JWTAuth::getToken());
-        return $this->successResponse('トークンをリフレッシュしました', ['token' => $token]);
+        return response()->json(['token' => $token], Response::HTTP_OK);
     }
 }
