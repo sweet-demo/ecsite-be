@@ -23,6 +23,7 @@ $ docker compose exec php-fpm composer format
 |---------------|-------------------------|
 | メールサーバー   | http://localhost:8025   |
 | API           | https://api.localhost   |
+| API定義書      | https://api.localhost/docs/api |
 
 ## コミット
 初回コミット前に以下を実行
