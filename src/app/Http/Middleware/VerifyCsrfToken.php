@@ -25,11 +25,7 @@ class VerifyCsrfToken
         $sessionToken = Session::token();
 
         if (!$token || !hash_equals($sessionToken, $token)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'CSRFトークンが無効または不足しています',
-                'error' => 'CSRF token mismatch',
-            ], Response::HTTP_FORBIDDEN);
+            return response()->json(['message' => 'CSRFトークンが無効または不足しています', 'error' => 'CSRF token mismatch'], Response::HTTP_FORBIDDEN);
         }
 
         return $next($request);

@@ -15,31 +15,15 @@ final class JWTAuthenticate
     private function handleException(JWTException $e)
     {
         if ($e instanceof TokenExpiredException) {
-            return response()->json([
-                'success' => false,
-                'message' => 'トークンの有効期限が切れています',
-                'error' => $e->getMessage(),
-            ], Response::HTTP_UNAUTHORIZED);
+            return response()->json(['message' => 'トークンの有効期限が切れています', 'error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
         }
         if ($e instanceof TokenInvalidException) {
-            return response()->json([
-                'success' => false,
-                'message' => 'トークンが無効です',
-                'error' => $e->getMessage(),
-            ], Response::HTTP_UNAUTHORIZED);
+            return response()->json(['message' => 'トークンが無効です', 'error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
         }
         if ($e instanceof TokenBlacklistedException) {
-            return response()->json([
-                'success' => false,
-                'message' => 'トークンが無効化されています',
-                'error' => $e->getMessage(),
-            ], Response::HTTP_UNAUTHORIZED);
+            return response()->json(['message' => 'トークンが無効化されています', 'error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
         }
-        return response()->json([
-            'success' => false,
-            'message' => 'トークンエラーが発生しました',
-            'error' => $e->getMessage(),
-        ], Response::HTTP_UNAUTHORIZED);
+        return response()->json(['message' => 'トークンエラーが発生しました', 'error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
     }
 
     /**
