@@ -1,4 +1,4 @@
-name: Generate and Deploy API Documentation
+name: Generate API Documentation and Create PR
 
 on:
   workflow_dispatch:
@@ -10,22 +10,13 @@ on:
       - 'src/app/Http/Controllers/**'
       - 'src/app/Http/Requests/**'
       - 'src/app/Http/Resources/**'
-  pull_request:
-    branches:
-      - develop
-    paths:
-      - 'src/routes/api.php'
-      - 'src/app/Http/Controllers/**'
-      - 'src/app/Http/Requests/**'
-      - 'src/app/Http/Resources/**'
 
 jobs:
-  generate-and-deploy:
+  generate-and-create-pr:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pages: write
-      id-token: write
+      pull-requests: write
     
     steps:
       - name: Checkout code
@@ -33,6 +24,7 @@ jobs:
         with:
           ref: develop
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -103,15 +95,64 @@ jobs:
             exit 1
           fi
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Create branch and commit changes
+        id: commit
+        run: |
+          BRANCH_NAME="update-api-docs-$(date +%Y%m%d-%H%M%S)"
+          git checkout -b $BRANCH_NAME
+          
+          # Check if there are any changes in docs/api/ to commit
+          git add docs/api/
+          if git diff --cached --quiet; then
+            echo "No changes to commit in docs/api/"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          git commit -m "docs: Update API documentation"
+          git push origin $BRANCH_NAME
+          
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+
+      - name: Create Pull Request
+        if: steps.commit.outputs.has_changes == 'true'
+        uses: actions/github-script@v7
         with:
-          path: './docs/api'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          script: |
+            const branchName = '${{ steps.commit.outputs.branch_name }}';
+            if (!branchName) {
+              console.log('No branch name found, skipping PR creation');
+              return;
+            }
+            
+            const { data: existingPRs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: `${context.repo.owner}:${branchName}`,
+              base: 'develop',
+              state: 'open'
+            });
+            
+            if (existingPRs.length > 0) {
+              console.log('Pull request already exists:', existingPRs[0].html_url);
+              return;
+            }
+            
+            const { data: pr } = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'docs: Update API documentation',
+              head: branchName,
+              base: 'develop',
+              body: 'This PR updates the API documentation generated from the latest code changes.',
+              draft: false
+            });
+            
+            console.log('Pull request created:', pr.html_url);
 
