@@ -13,6 +13,8 @@ $ docker compose exec php-fpm php artisan migrate
 $ docker compose exec php-fpm php artisan db:seed
 ```
 
+https://localhost で "Hello, World!" が表示されればOK
+
 ## フォーマッター
 ```
 $ docker compose exec php-fpm composer format
