@@ -17,6 +17,7 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
+    // TODO: GET, POST, PUT, DELETE 指定する
     'allowed_methods' => ['*'],
 
     // TODO: 環境変数で設定する
@@ -24,6 +25,7 @@ return [
 
     'allowed_origins_patterns' => [],
 
+    // TODO: HTTPヘッダー（例: Content-Type, X-Requested-With, Authorization）を明示的に指定するようにする
     'allowed_headers' => ['*'],
 
     'exposed_headers' => [],

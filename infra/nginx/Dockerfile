@@ -2,6 +2,8 @@ FROM nginx:alpine
 
 # Nginxの設定ファイルをコピー
 COPY infra/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY infra/nginx/common.conf /etc/nginx/common.conf
+COPY infra/nginx/php-fpm-common.conf /etc/nginx/php-fpm-common.conf
 
 RUN apk add --no-cache openssl
 

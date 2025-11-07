@@ -57,6 +57,8 @@ services:
       - ./src:/var/www/html
       - ./infra/nginx/ssl:/etc/nginx/ssl:ro
       - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./infra/nginx/common.conf:/etc/nginx/common.conf:ro
+      - ./infra/nginx/php-fpm-common.conf:/etc/nginx/php-fpm-common.conf:ro
     ports:
       - "80:80"
       - "443:443"
