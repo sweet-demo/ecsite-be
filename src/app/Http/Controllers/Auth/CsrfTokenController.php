@@ -18,10 +18,6 @@ class CsrfTokenController extends Controller
      */
     public function __invoke(Request $request): JsonResponse
     {
-        if (!$request->session()->isStarted()) {
-            $request->session()->start();
-        }
-
         $token = $request->session()->token();
 
         return response()->json(['csrf_token' => $token, 'token_name' => '_token'], Response::HTTP_OK);
