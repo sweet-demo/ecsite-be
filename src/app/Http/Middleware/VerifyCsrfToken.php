@@ -17,7 +17,7 @@ class VerifyCsrfToken
             return $next($request);
         }
 
-        $token = $request->input('_token');
+        $token = $request->input('_token') ?: $request->header('X-CSRF-TOKEN');
 
         if (!$token || !is_string($token)) {
             return response()->json(['message' => 'CSRFトークンが不足しています', 'error' => 'CSRF token missing'], Response::HTTP_FORBIDDEN);
