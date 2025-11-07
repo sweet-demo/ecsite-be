@@ -11,7 +11,7 @@ class CsrfTokenController extends Controller
 {
     /**
      * CSRFトークンを生成して返す
-     * 
+     *
      * 注意: LaravelのセッションベースのCSRFトークンは、
      * セッションが有効な間は同じトークンを返します。
      * これは正常な動作で、セキュリティ上問題ありません。

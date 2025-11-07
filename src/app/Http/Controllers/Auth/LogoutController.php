@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\JsonResponse;
-use Tymon\JWTAuth\Facades\JWTAuth;
 use Symfony\Component\HttpFoundation\Response;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 final class LogoutController
 {

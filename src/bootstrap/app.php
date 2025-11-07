@@ -13,7 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->api(append: [
-            \Illuminate\Session\Middleware\StartSession::class,
+            Illuminate\Session\Middleware\StartSession::class,
         ]);
         $middleware->alias([
             'jwt.auth' => App\Http\Middleware\JWTAuthenticate::class,
