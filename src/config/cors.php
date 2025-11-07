@@ -20,8 +20,7 @@ return [
     // TODO: GET, POST, PUT, DELETE 指定する
     'allowed_methods' => ['*'],
 
-    // TODO: 環境変数で設定する
-    'allowed_origins' => ['http://localhost:3000'],
+    'allowed_origins' => explode(',', env('CORS_ALLOWED_ORIGINS')),
 
     'allowed_origins_patterns' => [],
 
