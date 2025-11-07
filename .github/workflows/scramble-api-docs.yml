@@ -1,0 +1,117 @@
+name: Generate and Deploy API Documentation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'src/routes/api.php'
+      - 'src/app/Http/Controllers/**'
+      - 'src/app/Http/Requests/**'
+      - 'src/app/Http/Resources/**'
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - 'src/routes/api.php'
+      - 'src/app/Http/Controllers/**'
+      - 'src/app/Http/Requests/**'
+      - 'src/app/Http/Resources/**'
+
+jobs:
+  generate-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: pdo_mysql, mysql
+
+      - name: Setup Laravel project
+        working-directory: ./src
+        run: |
+          composer install --no-interaction --prefer-dist --optimize-autoloader
+          cp .env.local .env || true
+          php artisan key:generate
+
+      - name: Configure environment
+        working-directory: ./src
+        run: |
+          echo "APP_ENV=local" >> .env
+          echo "APP_DEBUG=true" >> .env
+          echo "APP_URL=http://localhost" >> .env
+          echo "DB_CONNECTION=sqlite" >> .env
+          echo "DB_DATABASE=:memory:" >> .env
+
+      - name: Generate OpenAPI JSON
+        working-directory: ./src
+        run: |
+          mkdir -p ../docs/api
+          echo "Generating OpenAPI JSON using Artisan command..."
+          php artisan scramble:export --output=../docs/api/openapi.json
+          
+          # Verify JSON file was created
+          if [ -f "../docs/api/openapi.json" ]; then
+            echo "OpenAPI JSON generated successfully"
+            echo "File size: $(wc -c < ../docs/api/openapi.json) bytes"
+            # Validate JSON
+            if command -v jq &> /dev/null; then
+              if jq empty ../docs/api/openapi.json 2>/dev/null; then
+                echo "JSON is valid"
+              else
+                echo "Warning: JSON validation failed"
+              fi
+            else
+              echo "jq not available, skipping JSON validation"
+            fi
+          else
+            echo "Error: Failed to generate OpenAPI JSON"
+            exit 1
+          fi
+
+      - name: Install Redoc CLI
+        run: |
+          npm install -g redoc-cli
+
+      - name: Generate HTML documentation
+        run: |
+          cd docs/api
+          if [ -f "openapi.json" ]; then
+            echo "Generating HTML with Redoc..."
+            redoc-cli bundle openapi.json -o index.html --title "API Documentation"
+            echo "HTML documentation generated successfully"
+          else
+            echo "Error: openapi.json not found"
+            exit 1
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './docs/api'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
