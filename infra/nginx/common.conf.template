@@ -13,13 +13,13 @@ add_header X-Frame-Options DENY always;
 add_header X-Content-Type-Options nosniff always;
 # Content-Security-Policy (CSP) ヘッダー
 # default-src 'self': デフォルトで同じオリジンのみ許可
-# script-src 'self': スクリプトは同じオリジンのみ
-# style-src 'self' 'unsafe-inline': スタイルは同じオリジンとインライン（Bladeテンプレート対応）
+# script-src 'self': スクリプトは同じオリジンのみ（Laravel Viteプラグインがnonceを自動付与）
+# style-src 'self': スタイルは同じオリジンのみ（Laravel Viteプラグインがnonceを自動付与）
 # img-src 'self' data: https: 画像は同じオリジン、data URI、HTTPSを許可
 # font-src 'self': フォントは同じオリジン
-# connect-src 'self' http://localhost:3000: 接続（APIコールなど）は同じオリジンとフロントエンド（開発環境）
+# connect-src: 接続（APIコールなど）は環境変数CSP_CONNECT_SRCで設定（デフォルト: 'self'）
 # frame-ancestors 'none': フレーム埋め込みを禁止（X-Frame-Options DENYと同等）
-add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' http://localhost:3000; frame-ancestors 'none';" always;
+add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https:; font-src 'self'; connect-src ${CSP_CONNECT_SRC}; frame-ancestors 'none';" always;
 
 # 静的ファイル（storage）の直接提供
 location ^~ /storage/ {
