@@ -1,6 +1,13 @@
 
 # ECサイト
 
+![PHP](https://img.shields.io/badge/PHP-8.2-777BB4?logo=php&logoColor=white)
+![Laravel](https://img.shields.io/badge/Laravel-12-FF2D20?logo=laravel&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?logo=mysql&logoColor=white)
+![Nginx](https://img.shields.io/badge/Nginx-1.29-009639?logo=nginx&logoColor=white)
+
+API定義書は[こちら](https://sweet-demo.github.io/ecsite-be/api/index.html)
+
 ## 初回セットアップ
 ```bash
 $ git clone git@github.com:sweet-demo/ecsite.git
@@ -15,18 +22,11 @@ $ docker compose exec php-fpm php artisan db:seed
 
 https://localhost で "Hello, World!" が表示されればOK
 
-## フォーマッター
-```
-$ docker compose exec php-fpm composer format
-```
-
 ## アクセスURL
 | サービス       | URL                     |
 |---------------|-------------------------|
 | メールサーバー   | http://localhost:8025   |
 | API           | https://api.localhost   |
-| API定義書（ローカル） | https://api.localhost/docs/api |
-| API定義書（GitHub Pages） | https://[ユーザー名].github.io/[リポジトリ名]/api/ |
 
 ## コミット
 初回コミット前に以下を実行
@@ -39,6 +39,11 @@ git config --local commit.template .gitmessage
 git commit
 ```
 
+## フォーマッター
+```
+$ docker compose exec php-fpm composer format
+```
+
 ### MySQL接続情報
 | 項目            | 値        |
 |----------------|-----------|
@@ -47,27 +52,6 @@ git commit
 | MYSQL_ROOT_PASSWORD | root |
 | MYSQL_USER | ecsite |
 | MYSQL_PASSWORD | ecsite |
-
-## プロジェクト構成
-
-```
-ecsite/
-├── src/                 # Laravel 12 バックエンド
-├── infra/
-│   ├── php/            # php Dockerファイル
-│   ├── mysql/          # mysql Dockerファイル
-│   ├── next/           # node Dockerファイル
-│   └── nginx/          # nginx Dockerファイル
-├── docker-compose.yml  # Docker Compose
-└── README.md
-```
-
-| 言語・フレームワーク | バージョン |
-|------------------|----------|
-| PHP              | 8.2      |
-| Laravel          | 12       |
-| MySQL            | 8.0      |
-| Nginx            | 1.29     |
 
 ## APIドキュメント
 
@@ -102,4 +86,4 @@ APIドキュメントはGitHub Actionsワークフローによって自動的に
    - `docs/api/openapi.json` - OpenAPI仕様（JSON形式）
    - `docs/api/index.html` - Redocで生成されたHTMLドキュメント
 
-生成されたドキュメントは `https://[ユーザー名].github.io/[リポジトリ名]/api/` でアクセスできます。
+生成されたドキュメントは `https://sweet-demo.github.io/ecsite-be/api/index.html` でアクセスできます。
