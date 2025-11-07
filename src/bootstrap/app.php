@@ -12,6 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->api(append: [
+            \Illuminate\Session\Middleware\StartSession::class,
+        ]);
         $middleware->alias([
             'jwt.auth' => App\Http\Middleware\JWTAuthenticate::class,
             'csrf' => App\Http\Middleware\VerifyCsrfToken::class,
