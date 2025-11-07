@@ -20,7 +20,7 @@ $ docker compose exec php-fpm php artisan migrate
 $ docker compose exec php-fpm php artisan db:seed
 ```
 
-https://localhost で "Hello, World!" が表示されればOK
+https://api.localhost で "Hello, World!" が表示されればOK
 
 ## アクセスURL
 | サービス       | URL                     |
