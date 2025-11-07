@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class VerifyCsrfToken
@@ -17,14 +17,15 @@ class VerifyCsrfToken
             return $next($request);
         }
 
-        if (!Session::isStarted()) {
-            Session::start();
+        $token = $request->input('_token');
+
+        Log::info('CSRFトークン: ' . print_r($request->all(), true));
+
+        if (!$token || !is_string($token)) {
+            return response()->json(['message' => 'CSRFトークンが不足しています', 'error' => 'CSRF token missing'], Response::HTTP_FORBIDDEN);
         }
 
-        $token = $request->input('_token') ?: $request->header('X-CSRF-TOKEN');
-        $sessionToken = Session::token();
-
-        if (!$token || !hash_equals($sessionToken, $token)) {
+        if (!hash_equals($request->session()->token(), $token)) {
             return response()->json(['message' => 'CSRFトークンが無効または不足しています', 'error' => 'CSRF token mismatch'], Response::HTTP_FORBIDDEN);
         }
 
