@@ -17,15 +17,13 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
-    // TODO: GET, POST, PUT, DELETE 指定する
-    'allowed_methods' => ['*'],
+    'allowed_methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
 
     'allowed_origins' => explode(',', env('CORS_ALLOWED_ORIGINS')),
 
     'allowed_origins_patterns' => [],
 
-    // TODO: HTTPヘッダー（例: Content-Type, X-Requested-With, Authorization）を明示的に指定するようにする
-    'allowed_headers' => ['*'],
+    'allowed_headers' => ['Content-Type', 'X-Requested-With', 'Authorization', 'X-CSRF-TOKEN'],
 
     'exposed_headers' => [],
 
