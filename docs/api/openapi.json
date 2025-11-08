@@ -10,43 +10,6 @@
         }
     ],
     "paths": {
-        "/csrf/token": {
-            "get": {
-                "operationId": "auth.csrfToken",
-                "description": "注意: LaravelのセッションベースのCSRFトークンは、\nセッションが有効な間は同じトークンを返します。\nこれは正常な動作で、セキュリティ上問題ありません。",
-                "summary": "CSRFトークンを生成して返す",
-                "tags": [
-                    "CsrfToken"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "csrf_token": {
-                                            "type": "string"
-                                        },
-                                        "token_name": {
-                                            "type": "string",
-                                            "enum": [
-                                                "_token"
-                                            ]
-                                        }
-                                    },
-                                    "required": [
-                                        "csrf_token",
-                                        "token_name"
-                                    ]
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/cake": {
             "get": {
                 "operationId": "cake.getCakeList",
