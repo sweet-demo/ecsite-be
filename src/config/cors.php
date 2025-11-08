@@ -22,7 +22,15 @@ return [
 
     'allowed_origins_patterns' => [],
 
-    'allowed_headers' => ['Content-Type', 'X-Requested-With', 'Authorization', 'X-CSRF-TOKEN'],
+    'allowed_headers' => [
+        'Content-Type',
+        'X-Requested-With',
+        'Authorization',
+        'Sec-Fetch-Site',
+        'Sec-Fetch-Mode',
+        'Sec-Fetch-Dest',
+        'Sec-Fetch-User',
+    ],
 
     'exposed_headers' => [],
 

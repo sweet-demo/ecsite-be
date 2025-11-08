@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Auth\CsrfTokenController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\MeController;
@@ -22,16 +21,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('csrf')->group(function () {
-    Route::get('token', CsrfTokenController::class);
-});
-
 Route::prefix('auth')->group(function () {
-    Route::post('login', LoginController::class)->middleware('csrf');
+    Route::post('login', LoginController::class);
 });
 
 Route::prefix('user')->group(function () {
-    Route::post('register', RegisterController::class)->middleware('csrf');
+    Route::post('register', RegisterController::class);
 });
 
 Route::prefix('cake')->group(function () {
@@ -41,10 +36,10 @@ Route::prefix('cake')->group(function () {
 // メール認証関連のルート（認証前の処理）
 Route::prefix('email')->group(function () {
     Route::get('verify', VerifyController::class);
-    Route::post('resend', ResendController::class)->middleware('csrf');
+    Route::post('resend', ResendController::class);
 });
 
-Route::middleware(['jwt.auth', 'csrf'])->prefix('auth')->group(function () {
+Route::middleware(['jwt.auth'])->prefix('auth')->group(function () {
     Route::post('logout', LogoutController::class);
     Route::get('me', MeController::class);
     Route::post('refresh', RefreshController::class);
