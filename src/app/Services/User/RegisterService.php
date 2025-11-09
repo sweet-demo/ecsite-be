@@ -54,8 +54,7 @@ final class RegisterService
             // TODO: メール認証フロントページを完成させる
             $this->mailService->send($userCreated->email, 'メール認証', 'emails.email-verification', [
                 'user' => $userCreated,
-                'verificationUrl' => 'page not implemented yet',
-                'verificationToken' => $verificationToken,
+                'verificationUrl' => config('app.frontend_url') . '/user/verify/' . $verificationToken,
             ]);
 
             DB::commit();
