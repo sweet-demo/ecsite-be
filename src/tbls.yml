@@ -2,7 +2,7 @@
 dsn: "mysql://root:password@127.0.0.1:3306/laravel"
 
 # ドキュメント出力設定
-docPath: "../docs"
+docPath: "../docs/db"
 
 # 出力形式設定
 format:
