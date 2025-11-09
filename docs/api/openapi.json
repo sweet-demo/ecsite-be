@@ -18,6 +18,27 @@
                     "GetCakeList"
                 ],
                 "responses": {
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "ケーキ一覧の取得に失敗しました"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "200": {
                         "description": "`CakeResourceCollection`",
                         "content": {
@@ -31,7 +52,7 @@
                 }
             }
         },
-        "/auth/login": {
+        "/login": {
             "post": {
                 "operationId": "auth.login",
                 "summary": "ログイン",
@@ -49,6 +70,27 @@
                     }
                 },
                 "responses": {
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "ログインに失敗しました"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "200": {
                         "description": "",
                         "content": {
@@ -94,7 +136,7 @@
                 }
             }
         },
-        "/auth/logout": {
+        "/logout": {
             "post": {
                 "operationId": "auth.logout",
                 "summary": "ログアウト",
@@ -126,7 +168,7 @@
                 }
             }
         },
-        "/auth/me": {
+        "/me": {
             "get": {
                 "operationId": "auth.me",
                 "summary": "ユーザー情報取得",
@@ -134,6 +176,27 @@
                     "Me"
                 ],
                 "responses": {
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "ユーザー情報の取得に失敗しました"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "200": {
                         "description": "`UserResource`",
                         "content": {
@@ -168,7 +231,7 @@
                 }
             }
         },
-        "/auth/refresh": {
+        "/refresh": {
             "post": {
                 "operationId": "auth.refresh",
                 "summary": "トークンリフレッシュ",
@@ -176,6 +239,27 @@
                     "Refresh"
                 ],
                 "responses": {
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "トークンリフレッシュに失敗しました"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
                     "200": {
                         "description": "",
                         "content": {
@@ -223,7 +307,10 @@
                                     "type": "object",
                                     "properties": {
                                         "message": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "enum": [
+                                                "ユーザー登録に失敗しました"
+                                            ]
                                         }
                                     },
                                     "required": [
@@ -286,7 +373,10 @@
                                     "type": "object",
                                     "properties": {
                                         "message": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "enum": [
+                                                "認証メールの再送信に失敗しました"
+                                            ]
                                         }
                                     },
                                     "required": [
@@ -348,7 +438,10 @@
                                     "type": "object",
                                     "properties": {
                                         "message": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "enum": [
+                                                "メール認証に失敗しました"
+                                            ]
                                         }
                                     },
                                     "required": [
