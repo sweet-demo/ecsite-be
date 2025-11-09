@@ -25,16 +25,16 @@ use Illuminate\Support\Facades\Route;
 Route::group([], function () {
     Route::post('login', LoginController::class);
 
-    Route::prefix('email')->group(function () {
+    Route::prefix('emails')->group(function () {
         Route::get('verify', VerifyController::class);
         Route::post('resend', ResendController::class);
     });
 
-    Route::prefix('cake')->group(function () {
+    Route::prefix('cakes')->group(function () {
         Route::get('/', GetCakeListController::class);
     });
 
-    Route::prefix('user')->group(function () {
+    Route::prefix('users')->group(function () {
         Route::post('register', RegisterController::class);
     });
 });
