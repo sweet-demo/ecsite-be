@@ -65,7 +65,7 @@ services:
       # CSPのconnect-src設定（環境ごとに変更可能）
       # 開発環境: 'self' https://localhost:3000
       # 本番環境: 'self' https://yourdomain.com
-      - CSP_CONNECT_SRC=${CSP_CONNECT_SRC:-'self' https://localhost:3000}
+      - CSP_CONNECT_SRC=${CSP_CONNECT_SRC:-'self' http://localhost:3000}
     depends_on:
       - php-fpm
     networks:
