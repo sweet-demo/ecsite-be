@@ -26,6 +26,7 @@ class RegisterRequest extends FormRequest
         return [
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required|string|min:6',
         ];
     }
 
@@ -43,6 +44,8 @@ class RegisterRequest extends FormRequest
             'password.required' => 'パスワードは必須です',
             'password.min' => 'パスワードは6文字以上で入力してください',
             'password.confirmed' => 'パスワードの確認が一致しません',
+            'password_confirmation.required' => 'パスワードの確認は必須です',
+            'password_confirmation.min' => 'パスワードの確認は6文字以上で入力してください',
         ];
     }
 }

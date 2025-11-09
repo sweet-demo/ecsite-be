@@ -6,16 +6,6 @@ use App\Mail\EmailVerificationMail;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 
-final class ResendServiceInputDto
-{
-    public string $email;
-
-    public function __construct(string $email)
-    {
-        $this->email = $email;
-    }
-}
-
 final class ResendService
 {
     /**
@@ -23,9 +13,9 @@ final class ResendService
      *
      * @throws \Exception
      */
-    public function __invoke(ResendServiceInputDto $inputDto): void
+    public function __invoke(string $email): void
     {
-        $user = User::where('email', $inputDto->email)->first();
+        $user = User::where('email', $email)->first();
 
         if (!$user) {
             return;

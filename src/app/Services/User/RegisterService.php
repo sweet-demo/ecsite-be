@@ -9,18 +9,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
-final class RegisterServiceInputDto
-{
-    public string $email;
-    public string $password;
-
-    public function __construct(string $email, string $password)
-    {
-        $this->email = $email;
-        $this->password = $password;
-    }
-}
-
 final class RegisterService
 {
     private User $user;
@@ -35,27 +23,31 @@ final class RegisterService
      *
      * @throws \Exception
      */
-    public function __invoke(RegisterServiceInputDto $inputDto): void
+    public function __invoke(string $email, string $password, string $password_confirmation): void
     {
+        if ($password !== $password_confirmation) {
+            throw new \Exception('パスワードの確認が一致しません');
+        }
+
         try {
             DB::beginTransaction();
 
-            $user = $this->user->where('email', $inputDto->email)
+            $user = $this->user->where('email', $email)
                 ->whereNotNull('email_verified_at')
                 ->first();
 
             if ($user) {
-                Mail::to($inputDto->email)->send(new AlreadyRegisteredMail($user));
+                Mail::to($email)->send(new AlreadyRegisteredMail($user));
                 return;
             }
 
-            $this->user->where('email', $inputDto->email)
+            $this->user->where('email', $email)
                 ->whereNull('email_verified_at')
                 ->delete();
 
             $userCreated = $this->user->create([
-                'email' => $inputDto->email,
-                'password' => Hash::make($inputDto->password),
+                'email' => $email,
+                'password' => Hash::make($password),
                 'status' => User::STATUS_ACTIVE,
             ]);
 

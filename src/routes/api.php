@@ -21,25 +21,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('auth')->group(function () {
+// 認証が不要なルート
+Route::group(function () {
     Route::post('login', LoginController::class);
+
+    Route::prefix('email')->group(function () {
+        Route::get('verify', VerifyController::class);
+        Route::post('resend', ResendController::class);
+    });
+
+    Route::prefix('cake')->group(function () {
+        Route::get('/', GetCakeListController::class);
+    });
+
+    Route::prefix('user')->group(function () {
+        Route::post('register', RegisterController::class);
+    });
 });
 
-Route::prefix('user')->group(function () {
-    Route::post('register', RegisterController::class);
-});
-
-Route::prefix('cake')->group(function () {
-    Route::get('/', GetCakeListController::class);
-});
-
-// メール認証関連のルート（認証前の処理）
-Route::prefix('email')->group(function () {
-    Route::get('verify', VerifyController::class);
-    Route::post('resend', ResendController::class);
-});
-
-Route::middleware(['jwt.auth'])->prefix('auth')->group(function () {
+// 認証が必要なルート
+Route::middleware(['jwt.auth'])->group(function () {
     Route::post('logout', LogoutController::class);
     Route::get('me', MeController::class);
     Route::post('refresh', RefreshController::class);
