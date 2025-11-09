@@ -2,26 +2,28 @@
 
 namespace App\Mail;
 
-use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class AlreadyRegisteredMail extends Mailable
+class SendEmail extends \Illuminate\Mail\Mailable
 {
     use Queueable;
     use SerializesModels;
 
-    public User $user;
+    public $subject;
+    public $view;
+    public array $data;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(User $user)
+    public function __construct(string $subject, string $view, array $data = [])
     {
-        $this->user = $user;
+        $this->subject = $subject;
+        $this->view = $view;
+        $this->data = $data;
     }
 
     /**
@@ -30,7 +32,7 @@ class AlreadyRegisteredMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'メール認証のお願い',
+            subject: $this->subject,
         );
     }
 
@@ -40,10 +42,8 @@ class AlreadyRegisteredMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.already-registered',
-            with: [
-                'user' => $this->user,
-            ],
+            view: $this->view,
+            with: $this->data,
         );
     }
 

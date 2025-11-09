@@ -1,21 +1,19 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>すでに本登録が完了しています</title>
-</head>
-<body>
+@extends('emails.layouts.base')
+
+@section('title', 'すでに本登録が完了しています')
+
+@section('header-title', 'すでに本登録が完了しています')
+
+@section('content')
     <p>{{ $user->email }} 様</p>
+
     <p>
         すでに本登録が完了しています。<br>
         このメールアドレスでは既に会員登録のお手続きが完了していますので、<br>
         再度のご登録は不要です。
     </p>
+
     <p>
-        ログインなどでお困りの場合は、パスワード再設定機能などをご利用ください。<br>
-        何かご不明な点がございましたら、お問い合わせください。
+        ログインなどでお困りの場合は、パスワード再設定機能などをご利用ください。
     </p>
-    <br>
-    <p>※このメールは送信専用です。</p>
-</body>
-</html>
+@endsection

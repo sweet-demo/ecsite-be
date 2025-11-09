@@ -4,16 +4,6 @@ namespace App\Services\User\EmailVerification;
 
 use App\Models\User;
 
-final class VerifyServiceInputDto
-{
-    public string $token;
-
-    public function __construct(string $token)
-    {
-        $this->token = $token;
-    }
-}
-
 final class VerifyService
 {
     /**
@@ -21,13 +11,13 @@ final class VerifyService
      *
      * @throws \Exception
      */
-    public function __invoke(VerifyServiceInputDto $inputDto): void
+    public function __invoke(string $token): void
     {
-        if (!$inputDto->token) {
+        if (!$token) {
             throw new \Exception('認証トークンが指定されていません');
         }
 
-        $user = User::where('email_verification_token', $inputDto->token)->first();
+        $user = User::where('email_verification_token', $token)->first();
 
         if (!$user) {
             throw new \Exception('無効な認証トークンです');

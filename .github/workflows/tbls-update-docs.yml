@@ -109,7 +109,7 @@ jobs:
       - name: Generate documentation
         working-directory: ./src
         run: |
-          mkdir -p ../docs
+          mkdir -p ../docs/db
           echo "Generating database documentation..."
           
           # データベース接続確認
@@ -132,21 +132,21 @@ jobs:
           
           # 生成されたファイルの確認
           echo "Generated files:"
-          ls -la ../docs/
+          ls -la ../docs/db
           
           # ER図の確認
-          if [ -f "../docs/er.svg" ]; then
-            echo "ER diagram generated: ../docs/er.svg"
-          elif [ -f "../docs/schema.svg" ]; then
-            echo "ER diagram generated: ../docs/schema.svg"
+          if [ -f "../docs/db/er.svg" ]; then
+            echo "ER diagram generated: ../docs/db/er.svg"
+          elif [ -f "../docs/db/schema.svg" ]; then
+            echo "ER diagram generated: ../docs/db/schema.svg"
           else
             echo "ER diagram not generated"
           fi
           
-          if [ -f "../docs/tables.md" ]; then
-            echo "Tables documentation generated: ../docs/tables.md"
-          elif [ -f "../docs/README.md" ]; then
-            echo "Tables documentation generated: ../docs/README.md"
+          if [ -f "../docs/db/tables.md" ]; then
+            echo "Tables documentation generated: ../docs/db/tables.md"
+          elif [ -f "../docs/db/README.md" ]; then
+            echo "Tables documentation generated: ../docs/db/README.md"
           else
             echo "Tables documentation not generated"
           fi
@@ -160,19 +160,19 @@ jobs:
         id: check_changes
         run: |
           # ドキュメントディレクトリの存在確認
-          if [ ! -d "docs" ]; then
+          if [ ! -d "docs/db" ]; then
             echo "docs directory not found"
             echo "changes=false" >> $GITHUB_OUTPUT
             exit 0
           fi
           
           # 変更の確認
-          git add docs/
+          git add docs/db/
           if git diff --cached --quiet; then
-            echo "No changes detected in docs directory"
+            echo "No changes detected in docs/db directory"
             echo "changes=false" >> $GITHUB_OUTPUT
           else
-            echo "Changes detected in docs directory"
+            echo "Changes detected in docs/db directory"
             echo "Changed files:"
             git diff --cached --name-only
             echo "changes=true" >> $GITHUB_OUTPUT

@@ -2,32 +2,20 @@
 
 namespace App\Services\User;
 
-use App\Mail\AlreadyRegisteredMail;
-use App\Mail\EmailVerificationMail;
 use App\Models\User;
+use App\Services\Mail\MailService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-
-final class RegisterServiceInputDto
-{
-    public string $email;
-    public string $password;
-
-    public function __construct(string $email, string $password)
-    {
-        $this->email = $email;
-        $this->password = $password;
-    }
-}
 
 final class RegisterService
 {
     private User $user;
+    private MailService $mailService;
 
-    public function __construct(User $user)
+    public function __construct(User $user, MailService $mailService)
     {
         $this->user = $user;
+        $this->mailService = $mailService;
     }
 
     /**
@@ -35,33 +23,40 @@ final class RegisterService
      *
      * @throws \Exception
      */
-    public function __invoke(RegisterServiceInputDto $inputDto): void
+    public function __invoke(string $email, string $password): void
     {
         try {
             DB::beginTransaction();
 
-            $user = $this->user->where('email', $inputDto->email)
+            $user = $this->user->where('email', $email)
                 ->whereNotNull('email_verified_at')
                 ->first();
 
             if ($user) {
-                Mail::to($inputDto->email)->send(new AlreadyRegisteredMail($user));
+                $this->mailService->send($email, 'メール認証', 'emails.already-registered', [
+                    'user' => $user,
+                ]);
                 return;
             }
 
-            $this->user->where('email', $inputDto->email)
+            $this->user->where('email', $email)
                 ->whereNull('email_verified_at')
                 ->delete();
 
             $userCreated = $this->user->create([
-                'email' => $inputDto->email,
-                'password' => Hash::make($inputDto->password),
+                'email' => $email,
+                'password' => Hash::make($password),
                 'status' => User::STATUS_ACTIVE,
             ]);
 
             $verificationToken = $userCreated->generateEmailVerificationToken();
 
-            Mail::to($userCreated->email)->send(new EmailVerificationMail($userCreated, $verificationToken));
+            // TODO: メール認証フロントページを完成させる
+            $this->mailService->send($userCreated->email, 'メール認証', 'emails.email-verification', [
+                'user' => $userCreated,
+                'verificationUrl' => 'page not implemented yet',
+                'verificationToken' => $verificationToken,
+            ]);
 
             DB::commit();
         } catch (\Exception $e) {

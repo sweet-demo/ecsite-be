@@ -4,8 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Requests\RegisterRequest;
 use App\Services\User\RegisterService;
-use App\Services\User\RegisterServiceInputDto;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 final class RegisterController
@@ -18,12 +18,15 @@ final class RegisterController
         $registerService = app(RegisterService::class);
 
         try {
-            $inputDto = new RegisterServiceInputDto($request->email, $request->password);
-            $registerService($inputDto);
+            $registerService(
+                $request->email,
+                $request->password,
+            );
 
             return response()->json(['message' => 'ユーザー登録が完了しました'], Response::HTTP_OK);
         } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+            Log::error($e->getMessage());
+            return response()->json(['message' => 'ユーザー登録に失敗しました'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

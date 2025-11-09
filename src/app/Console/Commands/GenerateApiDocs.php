@@ -30,11 +30,11 @@ class GenerateApiDocs extends Command
     {
         try {
             $outputPath = $this->option('output') ?? base_path('../docs/api/openapi.json');
-            
+
             // Ensure directory exists
             $directory = dirname($outputPath);
             if (!File::exists($directory)) {
-                File::makeDirectory($directory, 0755, true);
+                File::makeDirectory($directory, 0o755, true);
             }
 
             // Get generator and config
@@ -47,7 +47,7 @@ class GenerateApiDocs extends Command
             // Encode to JSON
             $json = json_encode($openApiArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
-            if ($json === false) {
+            if (false === $json) {
                 $this->error('Failed to encode OpenAPI specification to JSON');
                 return Command::FAILURE;
             }
@@ -56,14 +56,13 @@ class GenerateApiDocs extends Command
             File::put($outputPath, $json);
 
             $this->info("OpenAPI documentation generated successfully: {$outputPath}");
-            $this->info("File size: " . number_format(strlen($json)) . " bytes");
+            $this->info('File size: '.number_format(strlen($json)).' bytes');
 
             return Command::SUCCESS;
         } catch (\Exception $e) {
-            $this->error("Error generating API documentation: " . $e->getMessage());
+            $this->error('Error generating API documentation: '.$e->getMessage());
             $this->error($e->getTraceAsString());
             return Command::FAILURE;
         }
     }
 }
-
