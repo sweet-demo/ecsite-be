@@ -2,12 +2,18 @@
 
 namespace App\Services\User\EmailVerification;
 
-use App\Mail\EmailVerificationMail;
 use App\Models\User;
-use Illuminate\Support\Facades\Mail;
+use App\Services\Mail\MailService;
 
 final class ResendService
 {
+    private MailService $mailService;
+
+    public function __construct(MailService $mailService)
+    {
+        $this->mailService = $mailService;
+    }
+
     /**
      * 認証メール再送信
      *
@@ -27,6 +33,8 @@ final class ResendService
 
         $token = $user->generateEmailVerificationToken();
 
-        Mail::to($user->email)->send(new EmailVerificationMail($user, $token));
+        $this->mailService->send($user->email, 'メール認証', 'emails.email_verification', [
+            'token' => $token,
+        ]);
     }
 }

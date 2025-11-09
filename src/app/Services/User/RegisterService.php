@@ -2,20 +2,20 @@
 
 namespace App\Services\User;
 
-use App\Mail\AlreadyRegisteredMail;
-use App\Mail\EmailVerificationMail;
 use App\Models\User;
+use App\Services\Mail\MailService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 
 final class RegisterService
 {
     private User $user;
+    private MailService $mailService;
 
-    public function __construct(User $user)
+    public function __construct(User $user, MailService $mailService)
     {
         $this->user = $user;
+        $this->mailService = $mailService;
     }
 
     /**
@@ -23,12 +23,8 @@ final class RegisterService
      *
      * @throws \Exception
      */
-    public function __invoke(string $email, string $password, string $password_confirmation): void
+    public function __invoke(string $email, string $password): void
     {
-        if ($password !== $password_confirmation) {
-            throw new \Exception('パスワードの確認が一致しません');
-        }
-
         try {
             DB::beginTransaction();
 
@@ -37,7 +33,9 @@ final class RegisterService
                 ->first();
 
             if ($user) {
-                Mail::to($email)->send(new AlreadyRegisteredMail($user));
+                $this->mailService->send($email, 'メール認証', 'emails.already-registered', [
+                    'user' => $user,
+                ]);
                 return;
             }
 
@@ -53,7 +51,12 @@ final class RegisterService
 
             $verificationToken = $userCreated->generateEmailVerificationToken();
 
-            Mail::to($userCreated->email)->send(new EmailVerificationMail($userCreated, $verificationToken));
+            // TODO: メール認証フロントページを完成させる
+            $this->mailService->send($userCreated->email, 'メール認証', 'emails.email-verification', [
+                'user' => $userCreated,
+                'verificationUrl' => 'page not implemented yet',
+                'verificationToken' => $verificationToken,
+            ]);
 
             DB::commit();
         } catch (\Exception $e) {

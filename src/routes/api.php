@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // 認証が不要なルート
-Route::group(function () {
+Route::group([], function () {
     Route::post('login', LoginController::class);
 
     Route::prefix('email')->group(function () {
