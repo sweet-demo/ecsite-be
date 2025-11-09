@@ -20,10 +20,6 @@
         {{ $verificationUrl }}
     </div>
 
-    @if (config('app.env') === 'local')
-        <p style="font-size: 12px; color: #999999;">トークン（開発用）：{{ $verificationToken }}</p>
-    @endif
-
     <p>このリンクは24時間後に無効になります。</p>
 @endsection
 
