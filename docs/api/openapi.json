@@ -10,7 +10,7 @@
         }
     ],
     "paths": {
-        "/cake": {
+        "/cakes": {
             "get": {
                 "operationId": "cake.getCakeList",
                 "summary": "ケーキ一覧を取得",
@@ -281,7 +281,7 @@
                 }
             }
         },
-        "/user/register": {
+        "/users/register": {
             "post": {
                 "operationId": "user.register",
                 "summary": "ユーザー登録",
@@ -347,7 +347,7 @@
                 }
             }
         },
-        "/email/resend": {
+        "/emails/resend": {
             "post": {
                 "operationId": "emailVerification.resend",
                 "summary": "認証メール再送信",
@@ -413,7 +413,7 @@
                 }
             }
         },
-        "/email/verify": {
+        "/emails/verify": {
             "get": {
                 "operationId": "emailVerification.verify",
                 "summary": "メール認証",
