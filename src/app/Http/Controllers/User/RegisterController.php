@@ -19,8 +19,8 @@ final class RegisterController
 
         try {
             $registerService(
-                $request->email,
-                $request->password,
+                $request->input('email'),
+                $request->input('password'),
             );
 
             return response()->json(['message' => 'ユーザー登録が完了しました'], Response::HTTP_OK);
