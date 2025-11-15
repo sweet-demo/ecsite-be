@@ -30,6 +30,6 @@ final class Step1Controller
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['message' => 'Step1に失敗しました'], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }   
+        }
     }
 }

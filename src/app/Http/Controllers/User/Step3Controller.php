@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\User;
 
-use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\User\Step3Request;
 use App\Services\User\AllergieService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\Response;
 
 final class Step3Controller
 {

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers\User;
 
 use App\Http\Requests\User\Step2Request;
-use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Log;
 use App\Services\User\UserAddressService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\Response;
 
 final class Step2Controller
 {

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Allergie;
 
-use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-use App\Services\Allergie\GetAllergieListService;
-use Illuminate\Support\Facades\Log;
 use App\Http\Resources\AllergieResourceCollection;
+use App\Services\Allergie\GetAllergieListService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\Response;
 
 final class GetAllergieListController
 {
