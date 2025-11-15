@@ -27,7 +27,7 @@ CREATE TABLE `users` (
 
 | Name | Type | Default | Nullable | Extra Definition | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | ---------------- | -------- | ------- | ------- |
-| id | bigint unsigned |  | false | auto_increment | [cart_products](cart_products.md) [orders](orders.md) [user_allergie](user_allergie.md) [user_personal_infos](user_personal_infos.md) |  |  |
+| id | bigint unsigned |  | false | auto_increment | [cart_products](cart_products.md) [orders](orders.md) [user_addresses](user_addresses.md) [user_allergie](user_allergie.md) [user_personal_infos](user_personal_infos.md) |  |  |
 | status | tinyint |  | false |  |  |  |  |
 | email | varchar(255) |  | false |  |  |  |  |
 | email_verified_at | timestamp |  | true |  |  |  |  |
