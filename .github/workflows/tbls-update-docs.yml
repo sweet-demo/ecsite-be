@@ -109,6 +109,12 @@ jobs:
       - name: Generate documentation
         working-directory: ./src
         run: |
+          # 既存のドキュメントを削除（tblsのエラー回避のため）
+          if [ -d "../docs/db" ]; then
+            echo "Removing existing documentation directory..."
+            rm -rf ../docs/db
+          fi
+          
           mkdir -p ../docs/db
           echo "Generating database documentation..."
           
