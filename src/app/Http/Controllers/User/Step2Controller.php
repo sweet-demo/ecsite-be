@@ -18,11 +18,11 @@ final class Step2Controller
 
         try {
             $userAddressService(
-                $request->zip_code,
-                $request->prefecture,
-                $request->municipality,
-                $request->town,
-                $request->street,
+                $request->input('zip_code'),
+                $request->input('prefecture'),
+                $request->input('municipality'),
+                $request->input('town'),
+                $request->input('street'),
             );
 
             return response()->json(['message' => 'Step2が完了しました'], Response::HTTP_OK);

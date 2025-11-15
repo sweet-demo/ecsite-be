@@ -18,12 +18,12 @@ final class Step1Controller
 
         try {
             $personalInfoService(
-                $request->first_name,
-                $request->last_name,
-                $request->birthdate,
-                $request->tel1,
-                $request->tel2,
-                $request->tel3,
+                $request->input('first_name'),
+                $request->input('last_name'),
+                $request->input('birthdate'),
+                $request->input('tel1'),
+                $request->input('tel2'),
+                $request->input('tel3'),
             );
 
             return response()->json(['message' => 'Step1が完了しました'], Response::HTTP_OK);

@@ -17,7 +17,7 @@ final class Step3Controller
         try {
             $allergieService = app(AllergieService::class);
             $allergieService(
-                $request->allergies,
+                $request->input('allergies', []),
             );
 
             return response()->json(['message' => 'アレルギーの保存に成功しました'], Response::HTTP_OK);
