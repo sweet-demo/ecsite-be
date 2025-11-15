@@ -9,6 +9,7 @@ use App\Http\Controllers\User\EmailVerification\ResendController;
 use App\Http\Controllers\User\EmailVerification\VerifyController;
 use App\Http\Controllers\User\RegisterController;
 use App\Http\Controllers\User\Step1Controller;
+use App\Http\Controllers\User\Step2Controller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,5 +49,6 @@ Route::middleware(['jwt.auth'])->group(function () {
 
     Route::prefix('users')->group(function () {
         Route::post('step1', Step1Controller::class);
+        Route::post('step2', Step2Controller::class);
     });
 });

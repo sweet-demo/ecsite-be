@@ -110,4 +110,12 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return $this->hasOne(UserPersonalInfo::class);
     }
+
+    /**
+     * 住所を取得
+     */
+    public function address(): HasOne
+    {
+        return $this->hasOne(UserAddress::class);
+    }
 }
