@@ -1065,6 +1065,106 @@
       "def": "CREATE TABLE `tags` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `tags_name_unique` (`name`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     },
     {
+      "name": "user_addresses",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint unsigned",
+          "nullable": false,
+          "extra_def": "auto_increment"
+        },
+        {
+          "name": "user_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "zip_code",
+          "type": "varchar(255)",
+          "nullable": false,
+          "comment": "郵便番号"
+        },
+        {
+          "name": "prefecture",
+          "type": "varchar(255)",
+          "nullable": true,
+          "comment": "都道府県"
+        },
+        {
+          "name": "municipality",
+          "type": "varchar(255)",
+          "nullable": true,
+          "comment": "市区群"
+        },
+        {
+          "name": "town",
+          "type": "varchar(255)",
+          "nullable": true,
+          "comment": "町村"
+        },
+        {
+          "name": "street",
+          "type": "varchar(255)",
+          "nullable": true,
+          "comment": "番地以降"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "user_addresses_user_id_foreign",
+          "def": "KEY user_addresses_user_id_foreign (user_id) USING BTREE",
+          "table": "user_addresses",
+          "columns": [
+            "user_id"
+          ]
+        },
+        {
+          "name": "PRIMARY",
+          "def": "PRIMARY KEY (id) USING BTREE",
+          "table": "user_addresses",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "PRIMARY",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "user_addresses",
+          "columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "user_addresses_user_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (user_id) REFERENCES users (id)",
+          "table": "user_addresses",
+          "referenced_table": "users",
+          "columns": [
+            "user_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        }
+      ],
+      "def": "CREATE TABLE `user_addresses` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `user_id` bigint unsigned NOT NULL,\n  `zip_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '郵便番号',\n  `prefecture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '都道府県',\n  `municipality` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '市区群',\n  `town` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '町村',\n  `street` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '番地以降',\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `user_addresses_user_id_foreign` (`user_id`),\n  CONSTRAINT `user_addresses_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
       "name": "user_allergie",
       "type": "BASE TABLE",
       "columns": [
@@ -1522,6 +1622,19 @@
       ],
       "parent_cardinality": "exactly_one",
       "def": "FOREIGN KEY (shop_id) REFERENCES shops (id)"
+    },
+    {
+      "table": "user_addresses",
+      "columns": [
+        "user_id"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "users",
+      "parent_columns": [
+        "id"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (user_id) REFERENCES users (id)"
     },
     {
       "table": "user_allergie",
