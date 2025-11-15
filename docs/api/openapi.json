@@ -10,6 +10,47 @@
         }
     ],
     "paths": {
+        "/allergies": {
+            "get": {
+                "operationId": "allergie.getAllergieList",
+                "tags": [
+                    "GetAllergieList"
+                ],
+                "responses": {
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Allergie一覧の取得に失敗しました"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "`AllergieResourceCollection`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AllergieResourceCollection"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/cakes": {
             "get": {
                 "operationId": "cake.getCakeList",
@@ -413,6 +454,200 @@
                 }
             }
         },
+        "/users/step1": {
+            "post": {
+                "operationId": "user.step1",
+                "tags": [
+                    "Step1"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Step1Request"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Step1に失敗しました"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Step1が完了しました"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
+        "/users/step2": {
+            "post": {
+                "operationId": "user.step2",
+                "tags": [
+                    "Step2"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Step2Request"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Step2に失敗しました"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "Step2が完了しました"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
+        "/users/step3": {
+            "post": {
+                "operationId": "user.step3",
+                "tags": [
+                    "Step3"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Step3Request"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "アレルギーの保存に失敗しました"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "enum": [
+                                                "アレルギーの保存に成功しました"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
         "/emails/verify": {
             "get": {
                 "operationId": "emailVerification.verify",
@@ -484,15 +719,34 @@
                     "id": {
                         "type": "string"
                     },
+                    "kind": {
+                        "type": "string"
+                    },
                     "name": {
                         "type": "string"
                     }
                 },
                 "required": [
                     "id",
+                    "kind",
                     "name"
                 ],
                 "title": "AllergieResource"
+            },
+            "AllergieResourceCollection": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AllergieResource"
+                        }
+                    }
+                },
+                "required": [
+                    "data"
+                ],
+                "title": "AllergieResourceCollection"
             },
             "CakeImageResource": {
                 "type": "object",
@@ -683,6 +937,89 @@
                     "password_confirmation"
                 ],
                 "title": "RegisterRequest"
+            },
+            "Step1Request": {
+                "type": "object",
+                "properties": {
+                    "first_name": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "birthdate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "tel1": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "tel2": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "tel3": {
+                        "type": "string",
+                        "maxLength": 255
+                    }
+                },
+                "required": [
+                    "first_name",
+                    "last_name",
+                    "birthdate",
+                    "tel1",
+                    "tel2",
+                    "tel3"
+                ],
+                "title": "Step1Request"
+            },
+            "Step2Request": {
+                "type": "object",
+                "properties": {
+                    "zip_code": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "prefecture": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "municipality": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "town": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "street": {
+                        "type": "string",
+                        "maxLength": 255
+                    }
+                },
+                "required": [
+                    "zip_code",
+                    "prefecture",
+                    "municipality",
+                    "town",
+                    "street"
+                ],
+                "title": "Step2Request"
+            },
+            "Step3Request": {
+                "type": "object",
+                "properties": {
+                    "allergies": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "title": "Step3Request"
             },
             "TagResource": {
                 "type": "object",
