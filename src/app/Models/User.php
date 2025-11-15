@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
@@ -117,5 +118,13 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function address(): HasOne
     {
         return $this->hasOne(UserAddress::class);
+    }
+
+    /**
+     * アレルギーを取得
+     */
+    public function allergies(): BelongsToMany
+    {
+        return $this->belongsToMany(Allergie::class, 'user_allergie', 'user_id', 'allergie_id');
     }
 }

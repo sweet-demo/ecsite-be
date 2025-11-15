@@ -11,6 +11,7 @@ use App\Http\Controllers\User\RegisterController;
 use App\Http\Controllers\User\Step1Controller;
 use App\Http\Controllers\User\Step2Controller;
 use App\Http\Controllers\Allergie\GetAllergieListController;
+use App\Http\Controllers\User\Step3Controller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,5 +56,6 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::prefix('users')->group(function () {
         Route::post('step1', Step1Controller::class);
         Route::post('step2', Step2Controller::class);
+        Route::post('step3', Step3Controller::class);
     });
 });
