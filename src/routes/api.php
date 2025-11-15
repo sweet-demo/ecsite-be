@@ -10,6 +10,7 @@ use App\Http\Controllers\User\EmailVerification\VerifyController;
 use App\Http\Controllers\User\RegisterController;
 use App\Http\Controllers\User\Step1Controller;
 use App\Http\Controllers\User\Step2Controller;
+use App\Http\Controllers\Allergie\GetAllergieListController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +39,10 @@ Route::group([], function () {
 
     Route::prefix('users')->group(function () {
         Route::post('register', RegisterController::class);
+    });
+
+    Route::prefix('allergies')->group(function () {
+        Route::get('/', GetAllergieListController::class);
     });
 });
 

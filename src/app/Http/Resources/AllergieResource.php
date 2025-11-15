@@ -16,6 +16,7 @@ class AllergieResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'kind' => $this->kind,
             'name' => $this->name,
         ];
     }
