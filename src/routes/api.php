@@ -8,6 +8,7 @@ use App\Http\Controllers\Cake\GetCakeListController;
 use App\Http\Controllers\User\EmailVerification\ResendController;
 use App\Http\Controllers\User\EmailVerification\VerifyController;
 use App\Http\Controllers\User\RegisterController;
+use App\Http\Controllers\User\Step1Controller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,4 +45,8 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::post('logout', LogoutController::class);
     Route::get('me', MeController::class);
     Route::post('refresh', RefreshController::class);
+
+    Route::prefix('users')->group(function () {
+        Route::post('step1', Step1Controller::class);
+    });
 });

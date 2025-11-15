@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
@@ -100,5 +101,13 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function isEmailVerified()
     {
         return !is_null($this->email_verified_at);
+    }
+
+    /**
+     * 個人情報を取得
+     */
+    public function personalInfo(): HasOne
+    {
+        return $this->hasOne(UserPersonalInfo::class);
     }
 }
