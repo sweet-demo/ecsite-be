@@ -53,7 +53,7 @@ final class RegisterService
 
             $this->mailService->send($userCreated->email, 'メール認証', 'emails.email-verification', [
                 'user' => $userCreated,
-                'verificationUrl' => rtrim(config('app.frontend_url'), '/') . '/user/verify/' . $verificationToken,
+                'verificationUrl' => rtrim(config('app.frontend_url'), '/').'/user/verify/'.$verificationToken,
             ]);
 
             DB::commit();

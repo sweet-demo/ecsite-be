@@ -23,9 +23,6 @@ final class Step1Request extends FormRequest
         ];
     }
 
-    /**
-     * @return bool
-     */
     public function authorize(): bool
     {
         return true;

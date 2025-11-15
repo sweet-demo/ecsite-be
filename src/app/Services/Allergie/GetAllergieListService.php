@@ -13,8 +13,7 @@ final class GetAllergieListService
     public function __invoke(): Collection
     {
         try {
-            $allergieList = Allergie::all();
-            return $allergieList;
+            return Allergie::all();
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             throw $e;

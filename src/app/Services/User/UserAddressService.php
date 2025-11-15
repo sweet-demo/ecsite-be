@@ -13,7 +13,7 @@ final class UserAddressService
         try {
             /** @var \App\Models\User $user */
             $user = Auth::user();
-    
+
             $user->address()->updateOrCreate([
                 'user_id' => $user->id,
             ], [
@@ -25,6 +25,6 @@ final class UserAddressService
             ]);
         } catch (\Exception $e) {
             throw $e;
-        }   
+        }
     }
 }

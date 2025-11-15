@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Allergie\GetAllergieListController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\MeController;
@@ -10,7 +11,6 @@ use App\Http\Controllers\User\EmailVerification\VerifyController;
 use App\Http\Controllers\User\RegisterController;
 use App\Http\Controllers\User\Step1Controller;
 use App\Http\Controllers\User\Step2Controller;
-use App\Http\Controllers\Allergie\GetAllergieListController;
 use App\Http\Controllers\User\Step3Controller;
 use Illuminate\Support\Facades\Route;
 
