@@ -829,176 +829,6 @@
       "def": "CREATE TABLE `products` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `kind` tinyint NOT NULL,\n  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `status` tinyint NOT NULL,\n  `base_price` decimal(8,2) NOT NULL,\n  `size` decimal(5,2) NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  `deleted_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     },
     {
-      "name": "shop_product",
-      "type": "BASE TABLE",
-      "columns": [
-        {
-          "name": "id",
-          "type": "bigint unsigned",
-          "nullable": false,
-          "extra_def": "auto_increment"
-        },
-        {
-          "name": "shop_id",
-          "type": "bigint unsigned",
-          "nullable": false
-        },
-        {
-          "name": "product_id",
-          "type": "bigint unsigned",
-          "nullable": false
-        },
-        {
-          "name": "created_at",
-          "type": "timestamp",
-          "nullable": true
-        },
-        {
-          "name": "updated_at",
-          "type": "timestamp",
-          "nullable": true
-        }
-      ],
-      "indexes": [
-        {
-          "name": "shop_product_product_id_foreign",
-          "def": "KEY shop_product_product_id_foreign (product_id) USING BTREE",
-          "table": "shop_product",
-          "columns": [
-            "product_id"
-          ]
-        },
-        {
-          "name": "shop_product_shop_id_foreign",
-          "def": "KEY shop_product_shop_id_foreign (shop_id) USING BTREE",
-          "table": "shop_product",
-          "columns": [
-            "shop_id"
-          ]
-        },
-        {
-          "name": "PRIMARY",
-          "def": "PRIMARY KEY (id) USING BTREE",
-          "table": "shop_product",
-          "columns": [
-            "id"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "PRIMARY",
-          "type": "PRIMARY KEY",
-          "def": "PRIMARY KEY (id)",
-          "table": "shop_product",
-          "columns": [
-            "id"
-          ]
-        },
-        {
-          "name": "shop_product_product_id_foreign",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY (product_id) REFERENCES products (id)",
-          "table": "shop_product",
-          "referenced_table": "products",
-          "columns": [
-            "product_id"
-          ],
-          "referenced_columns": [
-            "id"
-          ]
-        },
-        {
-          "name": "shop_product_shop_id_foreign",
-          "type": "FOREIGN KEY",
-          "def": "FOREIGN KEY (shop_id) REFERENCES shops (id)",
-          "table": "shop_product",
-          "referenced_table": "shops",
-          "columns": [
-            "shop_id"
-          ],
-          "referenced_columns": [
-            "id"
-          ]
-        }
-      ],
-      "def": "CREATE TABLE `shop_product` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `shop_id` bigint unsigned NOT NULL,\n  `product_id` bigint unsigned NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `shop_product_shop_id_foreign` (`shop_id`),\n  KEY `shop_product_product_id_foreign` (`product_id`),\n  CONSTRAINT `shop_product_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),\n  CONSTRAINT `shop_product_shop_id_foreign` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
-    },
-    {
-      "name": "shops",
-      "type": "BASE TABLE",
-      "columns": [
-        {
-          "name": "id",
-          "type": "bigint unsigned",
-          "nullable": false,
-          "extra_def": "auto_increment"
-        },
-        {
-          "name": "kind",
-          "type": "tinyint",
-          "nullable": false
-        },
-        {
-          "name": "name",
-          "type": "varchar(255)",
-          "nullable": false
-        },
-        {
-          "name": "tel1",
-          "type": "varchar(255)",
-          "nullable": false
-        },
-        {
-          "name": "tel2",
-          "type": "varchar(255)",
-          "nullable": false
-        },
-        {
-          "name": "tel3",
-          "type": "varchar(255)",
-          "nullable": false
-        },
-        {
-          "name": "created_at",
-          "type": "timestamp",
-          "nullable": true
-        },
-        {
-          "name": "updated_at",
-          "type": "timestamp",
-          "nullable": true
-        },
-        {
-          "name": "deleted_at",
-          "type": "timestamp",
-          "nullable": true
-        }
-      ],
-      "indexes": [
-        {
-          "name": "PRIMARY",
-          "def": "PRIMARY KEY (id) USING BTREE",
-          "table": "shops",
-          "columns": [
-            "id"
-          ]
-        }
-      ],
-      "constraints": [
-        {
-          "name": "PRIMARY",
-          "type": "PRIMARY KEY",
-          "def": "PRIMARY KEY (id)",
-          "table": "shops",
-          "columns": [
-            "id"
-          ]
-        }
-      ],
-      "def": "CREATE TABLE `shops` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `kind` tinyint NOT NULL,\n  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `tel1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `tel2` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `tel3` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  `deleted_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
-    },
-    {
       "name": "tags",
       "type": "BASE TABLE",
       "columns": [
@@ -1063,6 +893,106 @@
         }
       ],
       "def": "CREATE TABLE `tags` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  UNIQUE KEY `tags_name_unique` (`name`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    },
+    {
+      "name": "user_addresses",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint unsigned",
+          "nullable": false,
+          "extra_def": "auto_increment"
+        },
+        {
+          "name": "user_id",
+          "type": "bigint unsigned",
+          "nullable": false
+        },
+        {
+          "name": "zip_code",
+          "type": "varchar(255)",
+          "nullable": false,
+          "comment": "郵便番号"
+        },
+        {
+          "name": "prefecture",
+          "type": "varchar(255)",
+          "nullable": true,
+          "comment": "都道府県"
+        },
+        {
+          "name": "municipality",
+          "type": "varchar(255)",
+          "nullable": true,
+          "comment": "市区群"
+        },
+        {
+          "name": "town",
+          "type": "varchar(255)",
+          "nullable": true,
+          "comment": "町村"
+        },
+        {
+          "name": "street",
+          "type": "varchar(255)",
+          "nullable": true,
+          "comment": "番地以降"
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "user_addresses_user_id_foreign",
+          "def": "KEY user_addresses_user_id_foreign (user_id) USING BTREE",
+          "table": "user_addresses",
+          "columns": [
+            "user_id"
+          ]
+        },
+        {
+          "name": "PRIMARY",
+          "def": "PRIMARY KEY (id) USING BTREE",
+          "table": "user_addresses",
+          "columns": [
+            "id"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "PRIMARY",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (id)",
+          "table": "user_addresses",
+          "columns": [
+            "id"
+          ]
+        },
+        {
+          "name": "user_addresses_user_id_foreign",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (user_id) REFERENCES users (id)",
+          "table": "user_addresses",
+          "referenced_table": "users",
+          "columns": [
+            "user_id"
+          ],
+          "referenced_columns": [
+            "id"
+          ]
+        }
+      ],
+      "def": "CREATE TABLE `user_addresses` (\n  `id` bigint unsigned NOT NULL AUTO_INCREMENT,\n  `user_id` bigint unsigned NOT NULL,\n  `zip_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '郵便番号',\n  `prefecture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '都道府県',\n  `municipality` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '市区群',\n  `town` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '町村',\n  `street` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '番地以降',\n  `created_at` timestamp NULL DEFAULT NULL,\n  `updated_at` timestamp NULL DEFAULT NULL,\n  PRIMARY KEY (`id`),\n  KEY `user_addresses_user_id_foreign` (`user_id`),\n  CONSTRAINT `user_addresses_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
     },
     {
       "name": "user_allergie",
@@ -1498,30 +1428,17 @@
       "def": "FOREIGN KEY (tag_id) REFERENCES tags (id)"
     },
     {
-      "table": "shop_product",
+      "table": "user_addresses",
       "columns": [
-        "product_id"
+        "user_id"
       ],
       "cardinality": "zero_or_more",
-      "parent_table": "products",
+      "parent_table": "users",
       "parent_columns": [
         "id"
       ],
       "parent_cardinality": "exactly_one",
-      "def": "FOREIGN KEY (product_id) REFERENCES products (id)"
-    },
-    {
-      "table": "shop_product",
-      "columns": [
-        "shop_id"
-      ],
-      "cardinality": "zero_or_more",
-      "parent_table": "shops",
-      "parent_columns": [
-        "id"
-      ],
-      "parent_cardinality": "exactly_one",
-      "def": "FOREIGN KEY (shop_id) REFERENCES shops (id)"
+      "def": "FOREIGN KEY (user_id) REFERENCES users (id)"
     },
     {
       "table": "user_allergie",

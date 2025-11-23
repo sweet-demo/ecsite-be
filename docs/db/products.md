@@ -26,7 +26,7 @@ CREATE TABLE `products` (
 
 | Name | Type | Default | Nullable | Extra Definition | Children | Parents | Comment |
 | ---- | ---- | ------- | -------- | ---------------- | -------- | ------- | ------- |
-| id | bigint unsigned |  | false | auto_increment | [allergie_product](allergie_product.md) [cake_infos](cake_infos.md) [cart_products](cart_products.md) [product_images](product_images.md) [product_stocks](product_stocks.md) [product_tag](product_tag.md) [shop_product](shop_product.md) |  |  |
+| id | bigint unsigned |  | false | auto_increment | [allergie_product](allergie_product.md) [cake_infos](cake_infos.md) [cart_products](cart_products.md) [product_images](product_images.md) [product_stocks](product_stocks.md) [product_tag](product_tag.md) |  |  |
 | kind | tinyint |  | false |  |  |  |  |
 | name | varchar(255) |  | false |  |  |  |  |
 | status | tinyint |  | false |  |  |  |  |

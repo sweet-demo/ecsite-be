@@ -18,7 +18,7 @@ final class ResendController
         $resendService = app(ResendService::class);
 
         try {
-            $resendService($request->email);
+            $resendService($request->input('email'));
 
             return response()->json(['message' => '認証メールを再送信しました'], Response::HTTP_OK);
         } catch (\Exception $e) {
