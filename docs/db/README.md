@@ -14,8 +14,6 @@
 | [product_stocks](product_stocks.md) | 4 |  | BASE TABLE |
 | [product_tag](product_tag.md) | 5 |  | BASE TABLE |
 | [products](products.md) | 9 |  | BASE TABLE |
-| [shop_product](shop_product.md) | 5 |  | BASE TABLE |
-| [shops](shops.md) | 9 |  | BASE TABLE |
 | [tags](tags.md) | 4 |  | BASE TABLE |
 | [user_addresses](user_addresses.md) | 9 |  | BASE TABLE |
 | [user_allergie](user_allergie.md) | 5 |  | BASE TABLE |
